@@ -1,8 +1,7 @@
-const { getAllProducts } = require("../Model/Mongodb/products.mongo");
+const message = require("../messages/message.class");
 
 const homePageCon = async (req, res) => {
-    const productList = await getAllProducts();
-    res.status(200).json(productList);
+    res.status(200).send(message.welcome);
 }
 
 
