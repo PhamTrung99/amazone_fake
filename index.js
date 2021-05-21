@@ -1,34 +1,20 @@
-const express = require('express')
+const express = require('express');
 require('dotenv').config();
-const path = require('path');
-
 const app = express();
 
-const index_path = path.join(__dirname,'/Template/index.html');
+//Config something 
+require('./src/Config/Config')(app);
 
-app.use(express.static('Template'));
+//homePage routes
+app.use('/',require('./src/Routes/homePage.route'));
 
-app.get('/', (req, res) => {
-    res.sendFile(index_path);
-})
+//Test Connection Page
+app.use('/connect', require('./src/Routes/testConnect.route'));
 
-app.get('/err', (req, res) => {
-    throw new Error('Error!');
-})
+//exception page routes
+app.use('/',require('./src/Routes/exeption.route'));
 
-app.use((req, res, next) => {
-    res.status(404).json({
-        error_message: 'Endpoint not found'
-    });
-})
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({
-        error_message: 'Something broke!'
-    });
-})
 
 app.listen(process.env.LOCAL_PORT, () => {
-    console.log('App running on Port: ' + process.env.LOCAL_PORT);
+    console.log('App running on port: ' + process.env.LOCAL_PORT);
 })
