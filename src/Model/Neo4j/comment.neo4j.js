@@ -3,7 +3,7 @@ const message = require('../../messages/message.class');
 
 try {
     var driver = neo4j.driver(process.env.NEO4J_URL, neo4j.auth.basic('neo4j', '1234'));
-    console.log(message.neo4j_Connect_Sucesss);
+    console.log(message.neo4j_Connect_Success);
 } catch (error) {
     console.log(error);
     console.log(message.neo4j_Connect_Fail);

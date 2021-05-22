@@ -3,10 +3,10 @@ const { promisifyAll } = require('bluebird');
 const message = require('../../messages/message.class');
 
 promisifyAll(redis);
-const client = redis.createClient(6379);
+const client = redis.createClient(process.env.REDIS_PORT);
 
 client.on('connect', function () {
-    console.log(message.redis_Connect_Sucesss);
+    console.log(message.redis_Connect_Success);
 });
 
 client.on("error", (error) => {
@@ -18,12 +18,11 @@ client.on("error", (error) => {
 //Bắt đầu Query
 const addCart = async (id, value) => {
     await client.setAsync(id, value).then(() => {
-        console.log("Add cart Success");
+        console.log(message.add_cart_Success);
     }).catch((error) => console.log(error));
 }
 
 const getCart = async (key) => {
-    addCart("new", "cartnew");
     return await client.getAsync(key).catch((error) => console.log(error));
 }
 

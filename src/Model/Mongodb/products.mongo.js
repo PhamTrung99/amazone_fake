@@ -11,7 +11,7 @@ const options = {
 
 try {
     mongoose.connect(process.env.TIKI_MONGODB_URL, options);
-    console.log(message.mongo_Connect_Sucesss);
+    console.log(message.mongo_Connect_Success);
 } catch (error) {
     console.log(message.mongo_Connect_Fail);
     console.log(error);
