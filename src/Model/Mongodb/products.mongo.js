@@ -9,9 +9,13 @@ const options = {
     useCreateIndex: true,
 };
 
-mongoose.connect(process.env.TIKI_MONGODB_URL, options,()=>{
-        console.log(message.mongo_Connect_Sucesss);
-});
+try {
+    mongoose.connect(process.env.TIKI_MONGODB_URL, options);
+    console.log(message.mongo_Connect_Sucesss);
+} catch (error) {
+    console.log(message.mongo_Connect_Fail);
+    console.log(error);
+}
 
 
 const getAllProducts = async () => {

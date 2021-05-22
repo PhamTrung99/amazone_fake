@@ -17,4 +17,4 @@ app.use('/',require('./src/Routes/exeption.route'));
 
 app.listen(process.env.LOCAL_PORT, () => {
     console.log('App running on port: ' + process.env.LOCAL_PORT);
-})
+})  
