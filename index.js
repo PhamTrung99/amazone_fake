@@ -8,6 +8,9 @@ require('./src/Config/Config')(app);
 //homePage routes
 app.use('/',require('./src/Routes/homePage.route'));
 
+//Product Detail routes
+app.use('/productdetail', require('./src/Routes/productDetail.route'));
+
 //Test Connection Page
 app.use('/connect', require('./src/Routes/testConnect.route'));
 

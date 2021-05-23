@@ -18,12 +18,18 @@ try {
 }
 
 
+
 const getAllProducts = async () => {
     const productList = await productModel.find({});
     return productList;
 }
 
-module.exports = { getAllProducts }
+const getProductByObjectID = async (_id) => {
+    const product = await productModel.findById(_id);
+    return product;
+}
+
+module.exports = { getAllProducts,getProductByObjectID }
 
 
 
