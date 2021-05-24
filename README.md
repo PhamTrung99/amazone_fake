@@ -1,6 +1,10 @@
 # AMAZONE FAKE
 đồ án môn quản trị cơ sở dữ liệu hiện đại
 
+# RUN
+- Mở cmd, cd đến folder amazone_fake. 
+- Nhập 'npm start'
+
 ## Các DB sử dụng trong đồ án:
 - Neo4j: lưu trữ đối tượng comments .
 - MongoDB: lưu trữ đối tượng products.

@@ -6,13 +6,13 @@
                     <li class="span3">
                         <div class="thumbnail">
                             <i class="tag"></i>
-                            <a href="product_details.html"><img src="<%= pro.thumbnail_url %>"
+                            <a href="productdetail/<%= pro._id %>"><img src="<%= pro.thumbnail_url %>"
                                     alt="<%= pro.name %>"></a>
                             <div class="caption">
                                 <h6>
                                     <%= pro.name.substring(0,30) + '...' %>
                                 </h6>
-                                <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">
+                                <h4><a class="btn" href="productdetail/<%= pro._id %>">VIEW</a> <span class="pull-right">
                                         <%= pro.list_price %> đ
                                     </span></h4>
                             </div>
