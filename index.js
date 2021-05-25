@@ -14,7 +14,7 @@ app.use('/productdetail', require('./src/Routes/productDetail.route'));
 //Test Connection route
 app.use('/connect', require('./src/Routes/testConnect.route'));
 
-//exception page routes
+//exception page route
 app.use('/',require('./src/Routes/exeption.route'));
 
 
