@@ -11,7 +11,7 @@ app.use('/',require('./src/Routes/homePage.route'));
 //Product Detail routes
 app.use('/productdetail', require('./src/Routes/productDetail.route'));
 
-//Test Connection Page
+//Test Connection route
 app.use('/connect', require('./src/Routes/testConnect.route'));
 
 //exception page routes
