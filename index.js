@@ -5,6 +5,10 @@ const app = express();
 //Config something 
 require('./src/Config/Config')(app);
 
+//Login, Register routes
+
+app.use('/account', require('./src/Routes/account.route'));
+
 //homePage routes
 app.use('/',require('./src/Routes/homePage.route'));
 
