@@ -6,7 +6,6 @@ const app = express();
 require('./src/Config/Config')(app);
 
 //Login, Register routes
-
 app.use('/account', require('./src/Routes/account.route'));
 
 //homePage routes
