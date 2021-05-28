@@ -1,7 +1,8 @@
 const { getAllProducts } = require("../Model/Mongodb/products.mongo");
+const { moneyConvert } = require("../Service/moneyConvert.sv");
 
 const homePageCon = async (req, res) => {
-    const allPro = await getAllProducts();
+    let allPro = await getAllProducts();
     let _10Pro = [];
     let i = 0;
     allPro.forEach((element) => {
@@ -10,14 +11,14 @@ const homePageCon = async (req, res) => {
             i++;
         }
     })
-    
+
     let _4proPerLine = [];
-    while(allPro.length >= 4){
-        let temp1 = allPro.splice(0,4);
+    while (allPro.length >= 4) {
+        let temp1 = allPro.splice(0, 4);
         _4proPerLine.push(temp1);
     }
     _4proPerLine.push(allPro);
-    res.render("pages/index", { _10Pro, _4proPerLine });
+    res.render("pages/index", { _10Pro, _4proPerLine,moneyConvert});
 }
 
 
