@@ -61,16 +61,7 @@
 										<%= proInfo.name %>
 									</h3>
 									<hr class="soft" />
-									<!-- <form class="form-horizontal qtyFrm">
-				  <div class="control-group">
-					<label class="control-label"><span style="font-size: 25px;font-family: fantasy"><%= proInfo.price %> VNĐ</span>
-						<del><%= proInfo.list_price %>₫ </del>
-						<button style=" background-color: red;border: none;color: white;font-weight: 900;padding: 3px;/* text-align: center; *//* text-decoration: none; */display: inline-block;font-size: 10px;margin: 4px 2px;border-radius: 50%;">-<%= proInfo.discount_rate %>%</button></label>
-					<div class="controls">
-					
-					</div>
-				  </div>
-				</form> -->
+
 									<div class="row" style="padding-left: 28px;">
 										<label class="control-label"><span style="font-size: 25px;font-family: fantasy">
 												<%= price %> VNĐ
@@ -95,31 +86,70 @@
 								<div class="span9">
 									<div id="myTabContent" class="tab-content">
 										<div class="tab-pane fade active in" id="home">
-											<h4 style="font-size: 24px;font-family: cursive;margin-top: 30px;margin-bottom: 18px;">Product Information</h4>
+											<h4
+												style="font-size: 24px;font-family: cursive;margin-top: 30px;margin-bottom: 18px;">
+												Product Information</h4>
 											<table class="table">
 												<tbody>
-													<% proInfo.specifications[0].attributes.forEach((obj)=>{  %> 
-													<tr>
-														<td style="background-color: #EFEFEF;"><%= obj.name %></td>
-														<td><%= obj.value %></td>
-													</tr>
-													<% }) %> 
+													<% proInfo.specifications[0].attributes.forEach((obj)=>{ %>
+														<tr>
+															<td style="background-color: #EFEFEF;">
+																<%= obj.name %>
+															</td>
+															<td>
+																<%= obj.value %>
+															</td>
+														</tr>
+														<% }) %>
 												</tbody>
 											</table>
-											<h4 style="font-size: 24px;font-family: cursive;margin-top: 37px;margin-bottom: 18px;">Description</h4>
+											<h4
+												style="font-size: 24px;font-family: cursive;margin-top: 37px;margin-bottom: 18px;">
+												Description</h4>
 											<div style="overflow: auto;height: 35rem;">
 												<%- proInfo.description %>
 											</div>
 										</div>
 									</div>
 								</div>
-						
+
 
 							</div>
 						</div>
 				</div>
 				<div class="row">
 					<h4 style="font-size: 24px;font-family: cursive;margin-top: 30px;margin-bottom: 18px;">COMMENTS</h4>
+
+					<% comments.forEach((comment)=>{ %>
+						<div class="row">
+							<div class="span3">
+							</div>
+							<div class="span9">
+								<div class="row">
+									<% for(let i=0; i< 5; i++) { %>
+										<span class="material-icons" style="color: #FDD835;margin-left: -7px;">
+											star_rate
+										</span>
+										<% } %>
+											<%= comment.title %>
+								</div>
+								<div class="row">
+									<%= comment.content %>
+								</div>
+								<div class="row" style="display: inline-flex;">
+									<div id="gallery">
+										<% cmtImages.forEach((image)=>{ %>
+										 <% if(String(image.comID) == String(comment.id)){ %>	
+												<a href="<%= image.full_path %>">
+													<img src="<%= image.full_path %>" alt="" style="width: 152px;height: 152px;border-radius: 12px;">
+												</a>	
+										 <% } %>
+									<% }) %> 
+								</div>
+								</div>
+							</div>
+						</div>
+					<% }) %>
 				</div>
 			</div>
 		</div>
@@ -172,96 +202,6 @@
 
 		<script src="themes/js/bootshop.js"></script>
 		<script src="themes/js/jquery.lightbox-0.5.js"></script>
-
-		<!-- Themes switcher section ============================================================================================= -->
-		<div id="secectionBox">
-			<link rel="stylesheet" href="themes/switch/themeswitch.css" type="text/css" media="screen" />
-			<script src="themes/switch/theamswitcher.js" type="text/javascript" charset="utf-8"></script>
-			<div id="themeContainer">
-				<div id="hideme" class="themeTitle">Style Selector</div>
-				<div class="themeName">Oregional Skin</div>
-				<div class="images style">
-					<a href="themes/css/#" name="bootshop"><img src="themes/switch/images/clr/bootshop.png"
-							alt="bootstrap business templates" class="active"></a>
-					<a href="themes/css/#" name="businessltd"><img src="themes/switch/images/clr/businessltd.png"
-							alt="bootstrap business templates" class="active"></a>
-				</div>
-				<div class="themeName">Bootswatch Skins (11)</div>
-				<div class="images style">
-					<a href="themes/css/#" name="amelia" title="Amelia"><img src="themes/switch/images/clr/amelia.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="spruce" title="Spruce"><img src="themes/switch/images/clr/spruce.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="superhero" title="Superhero"><img
-							src="themes/switch/images/clr/superhero.png" alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="united"><img src="themes/switch/images/clr/united.png"
-							alt="bootstrap business templates"></a>
-					<p style="margin:0;line-height:normal;margin-left:-10px;display:none;"><small>These are just
-							examples and you can build your own color scheme in the backend.</small></p>
-				</div>
-				<div class="themeName">Background Patterns </div>
-				<div class="images patterns">
-					<a href="themes/css/#" name="pattern1"><img src="themes/switch/images/pattern/pattern1.png"
-							alt="bootstrap business templates" class="active"></a>
-					<a href="themes/css/#" name="pattern2"><img src="themes/switch/images/pattern/pattern2.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern3"><img src="themes/switch/images/pattern/pattern3.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern4"><img src="themes/switch/images/pattern/pattern4.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern5"><img src="themes/switch/images/pattern/pattern5.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern6"><img src="themes/switch/images/pattern/pattern6.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern7"><img src="themes/switch/images/pattern/pattern7.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern8"><img src="themes/switch/images/pattern/pattern8.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern9"><img src="themes/switch/images/pattern/pattern9.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern10"><img src="themes/switch/images/pattern/pattern10.png"
-							alt="bootstrap business templates"></a>
-
-					<a href="themes/css/#" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png"
-							alt="bootstrap business templates"></a>
-
-					<a href="themes/css/#" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png"
-							alt="bootstrap business templates"></a>
-					<a href="themes/css/#" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png"
-							alt="bootstrap business templates"></a>
-
-				</div>
-			</div>
-		</div>
-		<span id="themesBtn"></span>
 </body>
 
 </html>

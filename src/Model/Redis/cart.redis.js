@@ -15,7 +15,6 @@ client.on("error", (error) => {
 })
 
 
-//Bắt đầu Query
 const addCart = async (id, value) => {
     await client.setAsync(id, value).then(() => {
         console.log(message.add_cart_Success);

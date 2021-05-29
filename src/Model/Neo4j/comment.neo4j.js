@@ -25,7 +25,42 @@ const getAllComment = async () => {
     return commentLists;
 }
 
+const getCommentByProductID = async (proID) => {
+    let session = driver.session();
+    let commentLists = [];
+    try {
+        var result = await session.run(`MATCH (c:Comment) WHERE (c)-[:COMMENT_FOR]->({id:${proID}}) RETURN c`, {});
+        result.records.forEach((singleRecord) => {
+            commentLists.push(singleRecord.get(0).properties);
+        })
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+    return commentLists;
+}
 
+const getCommentImage = async (proID,comID) =>{
+    let session = driver.session();
+    let Images = [];
+    try {
+        var result = await session.run(`
+        MATCH (i:Image),(c:Comment),(p:Product)
+        WHERE c.id = ${comID} AND p.id = ${proID}
+        AND (c)-[:CMT_IMAGE]->(i) 
+        AND (c)-[:COMMENT_FOR]->(p)
+        RETURN i`, {});
+        result.records.forEach((singleRecord) => {
+            Images.push(singleRecord.get(0).properties);
+        })
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+    return Images;
+}
 
-module.exports = { getAllComment }
+module.exports = { getAllComment,getCommentByProductID, getCommentImage}
 
