@@ -41,9 +41,9 @@ const getCommentByProductID = async (proID) => {
     return commentLists;
 }
 
-const getCommentImage = async (proID,comID) =>{
+const getCommentImage = async (proID, comID) => {
     let session = driver.session();
-    let Images = [];
+    let images = [];
     try {
         var result = await session.run(`
         MATCH (i:Image),(c:Comment),(p:Product)
@@ -59,12 +59,12 @@ const getCommentImage = async (proID,comID) =>{
     } finally {
         await session.close();
     }
-    return Images;
+    return images;
 }
 
-const getCustomerComment = async (proID,comID) =>{
+const getCustomerComment = async (proID, comID) => {
     let session = driver.session();
-    let Images = [];
+    let customers = [];
     try {
         var result = await session.run(`
         MATCH (cus:Customer),(com:Comment),(p:Product)
@@ -73,15 +73,37 @@ const getCustomerComment = async (proID,comID) =>{
         AND (com)-[:COMMENT_FOR]->(p)
         RETURN cus`, {});
         result.records.forEach((singleRecord) => {
-            Images.push(singleRecord.get(0).properties);
+            customers.push(singleRecord.get(0).properties);
         })
     } catch (error) {
         console.log(error);
     } finally {
         await session.close();
     }
-    return Images;
+    return customers;
 }
 
-module.exports = { getAllComment,getCommentByProductID, getCommentImage,getCustomerComment }
+const getSeller = async (proID, comID) => {
+    let session = driver.session();
+    let Sellers = [];
+    try {
+        var result = await session.run(`
+        MATCH (com:Comment),(p:Product),(s:Seller)
+        WHERE com.id =  ${comID}  AND p.id = ${proID}
+        AND (s)-[:SELL]->(p)
+        AND (com)-[:COMMENT_FOR]->(p)
+        RETURN s`, {});
+        result.records.forEach((singleRecord) => {
+            Sellers.push(singleRecord.get(0).properties);
+        })
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+    return Sellers;
+}
+
+
+module.exports = { getAllComment, getCommentByProductID, getCommentImage, getCustomerComment, getSeller }
 

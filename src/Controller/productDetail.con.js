@@ -1,5 +1,5 @@
 const { getProductByObjectID } = require("../Model/Mongodb/products.mongo");
-const { getCommentByProductID, getCommentImage, getCustomerComment } = require("../Model/Neo4j/comment.neo4j");
+const { getCommentByProductID, getCommentImage, getCustomerComment, getSeller } = require("../Model/Neo4j/comment.neo4j");
 const { moneyConvert } = require("../Service/moneyConvert.sv");
 
 const productDetailCon = async (req, res) => {
@@ -8,15 +8,19 @@ const productDetailCon = async (req, res) => {
     let comments = await getCommentByProductID(proInfo.id);
     let cmtImages = [];
     let cmtCustomers = [];
+    let sellers = [];
 
     for(let i = 0; i<comments.length; i++){
         let images = await getCommentImage(proInfo.id, comments[i].id);
         let customers = await getCustomerComment(proInfo.id, comments[i].id);
+        let seller = await getSeller(proInfo.id, comments[i].id);
+
         cmtImages.push(...images);
         cmtCustomers.push(customers);
+        sellers.push(seller);
     };
 
-    res.render("pages/productDetail",{proInfo, price, comments,cmtImages,cmtCustomers });
+    res.render("pages/productDetail",{proInfo, price, comments,cmtImages,cmtCustomers,sellers });
 }
 
 
