@@ -14,6 +14,9 @@ app.use('/',require('./src/Routes/homePage.route'));
 //Product Detail routes
 app.use('/productdetail', require('./src/Routes/productDetail.route'));
 
+//Cart page routes
+app.use('/cart',require('./src/Routes/cart.route'));
+
 //Test Connection route
 app.use('/connect', require('./src/Routes/testConnect.route'));
 
