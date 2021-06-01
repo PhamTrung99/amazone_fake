@@ -1,5 +1,6 @@
 const { getProductByObjectID } = require("../Model/Mongodb/products.mongo");
 const { getAllCartByHkey } = require("../Model/Redis/cart.redis");
+const {moneyConvert} = require("../Service/moneyConvert.sv");
 
 const userid = "US01"; //Temporary binding for testing.
 
@@ -20,7 +21,7 @@ const cartCon = async (req, res) => {
     }
     console.log(cartInfo);
     
-    res.render("pages/cart", {});
+    res.render("pages/cart", {cartInfo, moneyConvert});
 }
 
 module.exports = { cartCon };
