@@ -15,14 +15,22 @@ client.on("error", (error) => {
 })
 
 
-const addCart = async (id, value) => {
-    await client.setAsync(id, value).then(() => {
-        console.log(message.add_cart_Success);
-    }).catch((error) => console.log(error));
+const addCart = async (Hkey, field, value) => {
+    let flag = false;
+    await client.setAsync(Hkey, field, value)
+        .then(() => {
+            console.log(message.add_cart_Success);
+            flag = true;
+        }).catch((error) => {
+            console.log(error);
+        });
+    return flag;
 }
 
-const getCart = async (key) => {
-    return await client.getAsync(key).catch((error) => console.log(error));
+const getAllCartByHkey = async (Hkey) => {
+    return await client.hgetallAsync(Hkey)
+        .catch((error) => console.log(error));
+    
 }
 
-module.exports = { getCart, addCart };
+module.exports = { addCart, getAllCartByHkey };

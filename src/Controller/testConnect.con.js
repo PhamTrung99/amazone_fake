@@ -14,7 +14,7 @@ const neo4jTestCo = async (req, res) => {
 }
 
 const redisTestCo = async (req, res) => {
-    const cartList = await redisDB.getCart('new');
+    const cartList = await redisDB.getAllCartByHkey('CART:US01');
     res.status(200).json(cartList);
 }
 
