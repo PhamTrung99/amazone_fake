@@ -17,7 +17,7 @@ client.on("error", (error) => {
 
 const addCart = async (Hkey, field, value) => {
     let flag = false;
-    await client.setAsync(Hkey, field, value)
+    await client.hsetAsync(Hkey, field, value)
         .then(() => {
             console.log(message.add_cart_Success);
             flag = true;

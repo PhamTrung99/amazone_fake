@@ -51,10 +51,11 @@
                 </button></label>
         </div>
         <div class="row" style="padding-top: 10px;padding-left: 23px;">
-            <input type="number" min="0" class="span1" placeholder="Số lượng" />
-            <button type="submit" class="btn btn-large btn-danger"
+            <input id="input_countPro" type="number" min="1" class="span1" placeholder="Số lượng" value="1" />
+            <button onClick="handleAddToCart(`<%= proInfo._id %>`)"  class="btn btn-large btn-danger"
                 style="margin-left: 27px"> Add to cart <i
                     class=" icon-shopping-cart"></i></button>
+            <script src="/javascript/handleAddToCart.cart.js"></script>
 
         </div>
     </div>

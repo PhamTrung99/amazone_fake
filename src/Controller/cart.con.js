@@ -41,5 +41,12 @@ const removePro = async (req, res) => {
     res.status(200).json({});
 }
 
+const addToCart = async (req, res)=>{
+    let proID = req.body.proID;
+    let value = req.body.value;
+    await redisDB.addCart('CART:' + userid, 'PRODUCT:' + proID, value);
+    res.status(200).json({});
+}
 
-module.exports = { cartCon, addQuantityOfPro, removePro };
+
+module.exports = { cartCon, addQuantityOfPro, removePro, addToCart };
