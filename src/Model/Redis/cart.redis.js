@@ -53,5 +53,12 @@ const removeProFromCart = async (Hkey, key)=>{
     return flag;
 }
 
+const checkExistPro = async (Hkey, key)=>{
+    let flag = await client.hexistsAsync(Hkey, key)
+        .catch((error) => console.log(error));
+    return flag; //0 or 1
+}
 
-module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart };
+
+
+module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart, checkExistPro };
