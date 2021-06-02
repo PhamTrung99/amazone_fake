@@ -30,7 +30,17 @@ const addCart = async (Hkey, field, value) => {
 const getAllCartByHkey = async (Hkey) => {
     return await client.hgetallAsync(Hkey)
         .catch((error) => console.log(error));
-    
+
 }
 
-module.exports = { addCart, getAllCartByHkey };
+const addQuantityOfProduct = async (Hkey, key, value) => {
+    let flag = false;
+    await client.hmsetAsync(Hkey, key, value)
+        .then(() => {
+            flag = true;
+        })
+        .catch((error) => console.log(error));
+    return flag;
+}
+
+module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct };

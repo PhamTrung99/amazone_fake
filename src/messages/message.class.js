@@ -9,5 +9,7 @@ class message {
     static redis_Connect_Fail = "RedisDB Connect Fail !!!";
     static cassandra_Connect_Fail = "Cassandra Connect Fail !!!";
     static add_cart_Success = "Add cart Success"; 
+    static change_quantity_success = "Change quantity success";
+    static change_quantity_fail= "Change quantity fail"; 
 }
 module.exports = message;

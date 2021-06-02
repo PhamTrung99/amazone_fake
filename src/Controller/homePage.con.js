@@ -1,5 +1,6 @@
 const { getAllProducts } = require("../Model/Mongodb/products.mongo");
-const { moneyConvert } = require("../Service/moneyConvert.sv");
+const {moneyConvert} = require("../public/javascript/moneyConvert");
+
 
 const homePageCon = async (req, res) => {
     let allPro = await getAllProducts();
