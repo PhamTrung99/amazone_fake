@@ -51,10 +51,16 @@
                 </button></label>
         </div>
         <div class="row" style="padding-top: 10px;padding-left: 23px;">
-            <input id="input_countPro" type="number" min="1" class="span1" placeholder="Số lượng" value="1" />
-            <button onClick="handleAddToCart(`<%= proInfo._id %>`)"  class="btn btn-large btn-danger"
-                style="margin-left: 27px"> Add to cart <i
-                    class=" icon-shopping-cart"></i></button>
+            <% if(checkExistInCart == 0){ %>
+                <input id="input_countPro" type="number" min="1" class="span1" placeholder="Số lượng" value="1" />
+                <button onClick="handleAddToCart(`<%= proInfo._id %>`)"  class="btn btn-large btn-danger"
+                    style="margin-left: 27px"> Add to cart <i
+                        class=" icon-shopping-cart"></i></button>
+            <% }else{ %>
+                <button class="btn btn-large btn-info"
+                     > Added <i
+                        class=" icon-shopping-cart"></i></button>
+            <% } %>  
             <script src="/javascript/handleAddToCart.cart.js"></script>
 
         </div>
