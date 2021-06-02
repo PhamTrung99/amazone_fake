@@ -43,4 +43,15 @@ const addQuantityOfProduct = async (Hkey, key, value) => {
     return flag;
 }
 
-module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct };
+const removeProFromCart = async (Hkey, key)=>{
+    let flag = false;
+    await client.hdelAsync(Hkey, key)
+        .then(() => {
+            flag = true;
+        })
+        .catch((error) => console.log(error));
+    return flag;
+}
+
+
+module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart };

@@ -1,9 +1,9 @@
-const { getAllProducts } = require("../Model/Mongodb/products.mongo");
+const mongoDB = require("../Model/Mongodb/products.mongo");
 const {moneyConvert} = require("../public/javascript/moneyConvert");
 
 
 const homePageCon = async (req, res) => {
-    let allPro = await getAllProducts();
+    let allPro = await mongoDB.getAllProducts();
     let _10Pro = [];
     let i = 0;
     allPro.forEach((element) => {
