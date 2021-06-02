@@ -23,7 +23,7 @@
                         <input class="span1" style="max-width:34px" value="<%= product.quantity %>" id="<%= product.product_objID %>" size="16" type="text" min="0" disabled>
                             <button class="btn" type="button" onClick="handleMinus(`<%= product.product_objID %>`)" ><i class="icon-minus"></i></button>
                             <button class="btn" type="button" onClick="handlePlus(`<%= product.product_objID %>`)"><i class="icon-plus"></i></button>
-                            <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
+                            <button class="btn btn-danger" type="button" onClick="handleRemove(`<%= product.product_objID %>`)"><i class="icon-remove icon-white"></i></button>
                     </div>
                 </td>
                 <td id="price<%= product.product_objID %>">
@@ -49,3 +49,4 @@
 </table>
 <script src="/javascript/handlePlus.cart.js"></script>
 <script src="/javascript/handleMinus.cart.js"></script>
+<script src="/javascript/handleRemove.cart.js"></script>
