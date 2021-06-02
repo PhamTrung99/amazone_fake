@@ -1,14 +1,19 @@
-const mongoDB= require("../Model/Mongodb/products.mongo");
+const mongoDB = require("../Model/Mongodb/products.mongo");
 const neoDB = require("../Model/Neo4j/comment.neo4j");
+const redisDB = require("../Model/Redis/cart.redis");
 const { moneyConvert } = require("../public/javascript/moneyConvert");
 
+const userid = "US01"; //Temporary binding for testing.
+
 const productDetailCon = async (req, res) => {
-    const proInfo = await mongoDB.getProductByObjectID(req.params.objId);
-    let price = moneyConvert(String(proInfo.price));
-    let comments = await neoDB.getCommentByProductID(proInfo.id);
     let cmtImages = [];
     let cmtCustomers = [];
     let sellers = [];
+
+    const proInfo = await mongoDB.getProductByObjectID(req.params.objId);
+    let price = moneyConvert(String(proInfo.price));
+    let comments = await neoDB.getCommentByProductID(proInfo.id);
+    let checkExistInCart = await redisDB.checkExistPro('CART:' + userid, 'PRODUCT:' + proInfo._id);
 
     for (let i = 0; i < comments.length; i++) {
         let images = await neoDB.getCommentImage(proInfo.id, comments[i].id);
@@ -20,7 +25,7 @@ const productDetailCon = async (req, res) => {
         sellers.push(seller);
     };
 
-    res.render("pages/productDetail", { proInfo, price, comments, cmtImages, cmtCustomers, sellers });
+    res.render("pages/productDetail", { proInfo, price, comments, cmtImages, cmtCustomers, sellers, checkExistInCart });
 }
 
 
