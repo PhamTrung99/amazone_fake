@@ -8,4 +8,5 @@ function handleAddToCart(proID){
             value: value
         }
     });
+    setTimeout(()=>window.location.reload(),10);
 }
