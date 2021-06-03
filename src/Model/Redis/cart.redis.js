@@ -59,6 +59,17 @@ const checkExistPro = async (Hkey, key)=>{
     return flag; //0 or 1
 }
 
+const deleteCart = async (Hkey)=>{
+    let flag = false;
+    await client.delAsync(Hkey)
+        .then(() => {
+            flag = true;
+        })
+        .catch((error) => console.log(error));
+    return flag;
+}
 
 
-module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart, checkExistPro };
+
+
+module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart, checkExistPro, deleteCart };
