@@ -1,0 +1,22 @@
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Order Date</th>
+        <th>Product</th>
+        <th>STATUS</th>
+        <th>TOTAL_VND</th>
+        <th>Total_USD</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% invoiceList.forEach((invoice)=>{ %> 
+      <tr>
+        <td> <%= invoice.ORDER_DATE %></td>
+        <td>MASSA AST<br/>Color : black, Material : metal</td>
+        <td>$120.00</td>
+        <td>$25.00</td>
+        <td>$15.00</td>
+      </tr>
+      <% })%>
+      </tbody>
+  </table>
