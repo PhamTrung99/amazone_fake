@@ -5,6 +5,12 @@ const { moneyConvert } = require("../public/javascript/moneyConvert");
 
 const userid = "US01"; //Temporary binding for testing.
 
+const getProduct = async (req, res) => {
+    const proInfo = await mongoDB.getProductByObjectID(req.body._id);
+    console.log(proInfo);
+    res.status(200)
+}
+
 const productDetailCon = async (req, res) => {
     let cmtImages = [];
     let cmtCustomers = [];
@@ -30,5 +36,5 @@ const productDetailCon = async (req, res) => {
 
 
 module.exports = {
-    productDetailCon
+    productDetailCon, getProduct
 };
