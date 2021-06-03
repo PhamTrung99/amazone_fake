@@ -5,7 +5,7 @@ const { moneyConvert } = require("../public/javascript/moneyConvert");
 
 const userid = "US01"; //Temporary binding for testing.
 
-const cartCon = async (req, res) => {
+const getCartInfo = async () => {
     let hkey = 'CART:' + userid;
     const hashCart = await redisDB.getAllCartByHkey(hkey);
     let cartInfo = [];
@@ -23,7 +23,11 @@ const cartCon = async (req, res) => {
             total_price_usd: +proInfo.price_usd * (+hashCart[field]),
         })
     }
+    return cartInfo;
+}
 
+const cartCon = async (req, res) => {
+    let cartInfo = await getCartInfo();
     res.render("pages/cart", { cartInfo, moneyConvert });
 }
 
@@ -48,4 +52,4 @@ const addToCart = async (req, res)=>{
     res.status(200).json({});
 }
 
-module.exports = { cartCon, addQuantityOfPro, removePro, addToCart };
+module.exports = { cartCon, addQuantityOfPro, removePro, addToCart, getCartInfo };
