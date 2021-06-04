@@ -14,21 +14,22 @@
         <% invoiceList.forEach((invoice)=>{ %>
             <tr>
                 <td>
-                    <%= invoice.ORDER_DATE %>
+                    <%= invoice.ORDER_DATE%>
                 </td>
                 <td>
                     <div>
                         <% invoice.LISTPRODUCTID.split(',').forEach((_id)=>{ %>
                             <script src="javascript/handleOnloadPro.ivmanage.js" _id="<%= _id %>"></script>
                             <div id="div_<%=_id %>">
-
                             </div>
                             <% }) %>
                     </div>
                 </td>
-                <td>$120.00</td>
-                <td>$25.00</td>
-                <td>$15.00</td>
+                <td><%= invoice.STATUS %> </td>
+                <td style="font-weight: 600;
+                color: orangered;
+                font-size: 14px;"><%= moneyConvert(invoice.TOTAL_VND) %></td>
+                <td><%= invoice.TOTAL_USD %></td>
             </tr>
             <% })%>
     </tbody>
