@@ -13,6 +13,7 @@
     </thead>
     <tbody>
         <% invoiceList.forEach((invoice)=>{ %>
+            <%  if(invoice.IS_ACTIVE !=0){ %>
             <tr>
                 <td>
                     <span class="label label-info"> <%= String(invoice.ORDER_DATE).replace('GMT+0700 (Indochina Time)','')%></span>
@@ -33,6 +34,6 @@
                 <td><%= invoice.TOTAL_USD %></td>
                 <td><button class="btn btn-danger">Cancle </button></td>
             </tr>
-            <% })%>
+            <% }})%>
     </tbody>
 </table>
