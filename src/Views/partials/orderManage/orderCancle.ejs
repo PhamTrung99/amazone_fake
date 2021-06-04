@@ -8,7 +8,6 @@
           <th>STATUS</th>
           <th>TOTAL_VND</th>
           <th>Total_USD</th>
-          <th></th>
       </tr>
   </thead>
   <tbody>
@@ -27,12 +26,11 @@
                           <% }) %>
                   </div>
               </td>
-              <td><span class="label label-info"><%= invoice.STATUS %></span></td>
+              <td><span class="label label-warning">Đã huỷ</span></td>
               <td style="font-weight: 600;
               color: orangered;
               font-size: 14px;"><%= moneyConvert(invoice.TOTAL_VND) %></td>
               <td><%= invoice.TOTAL_USD %></td>
-              <td><button class="btn btn-danger">Cancle </button></td>
           </tr>
           <% }})%>
   </tbody>
