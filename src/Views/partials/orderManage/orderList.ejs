@@ -32,8 +32,10 @@
                 color: orangered;
                 font-size: 14px;"><%= moneyConvert(invoice.TOTAL_VND) %></td>
                 <td><%= invoice.TOTAL_USD %></td>
-                <td><button class="btn btn-danger">Cancle </button></td>
+                <td><button onClick="handleCancleOrder(`<%= invoice.ID %>`)" class="btn btn-danger">Cancle </button></td>
             </tr>
             <% }})%>
     </tbody>
 </table>
+
+<script src="javascript/handleCancleOrder.js"></script>
