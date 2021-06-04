@@ -1,3 +1,5 @@
+
+
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -17,8 +19,8 @@
                 <td>
                     <div>
                         <% invoice.LISTPRODUCTID.split(',').forEach((_id)=>{ %>
-                            <script src="javascript/handleOnloadPro.ivmanage.js"></script>
-                            <div id="div_id" style="border-bottom-style: inset;border-width: 2px;">
+                            <script src="javascript/handleOnloadPro.ivmanage.js" _id="<%= _id %>"></script>
+                            <div id="div_<%=_id %>">
 
                             </div>
                             <% }) %>
