@@ -47,6 +47,13 @@ const cancleOrder = async (req, res) => {
     res.status(201).json({});
 }
 
+const orderAgain = async (req, res) => {
+    let orderID = req.body.orderID;
+    await mysqlDB.orderAgain(orderID);
+
+    res.status(201).json({});
+}
+
 
 const orderManage = async (req, res) => {
 
@@ -55,5 +62,5 @@ const orderManage = async (req, res) => {
 }
 
 module.exports = {
-    orderCon, orderManage, cancleOrder
+    orderCon, orderManage, cancleOrder, orderAgain
 };
