@@ -6,5 +6,5 @@ function handleOrderAgain(orderID){
             orderID: orderID
         }
     });
-    window.location.reload()
+    setTimeout(window.location.reload(),1000);
 }
