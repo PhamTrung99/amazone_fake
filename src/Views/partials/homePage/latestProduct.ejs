@@ -10,7 +10,6 @@
             <a class="btn" href="productdetail/<%= pro._id %>" style="background: FIREBRICK;">
               <i style="color: white ;font-style: inherit" >-<%= pro.discount_rate %>%</i>
             </a>
-            <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
             <a class="btn btn-primary" href="#">
               <%let price = moneyConvert(String(pro.price))%> 
               <%= price %>đ</a>
