@@ -40,14 +40,20 @@ const orderCon = async (req, res) => {
     
 }
 
+const cancleOrder = async (req, res) => {
+    let orderID = req.body.orderID;
+    await mysqlDB.deleteInvoice(orderID);
+
+    res.status(201).json({});
+}
+
 
 const orderManage = async (req, res) => {
 
     let invoiceList = await mysqlDB.getInvoice(userid);
-
     res.status(200).render('pages/orderManage', {invoiceList, moneyConvert});
 }
 
 module.exports = {
-    orderCon, orderManage
+    orderCon, orderManage, cancleOrder
 };
