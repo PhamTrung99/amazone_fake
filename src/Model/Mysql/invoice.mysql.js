@@ -8,8 +8,16 @@ const getInvoice = async (userID) => {
     return await db('invoice').where('USERID',userID);
 }
 
+const deleteInvoice = async (orderID) => {
+    return await db('invoice').where('ID',orderID).update('IS_ACTIVE',0);
+}
+
+// const orderAgain = async (orderID) => {
+//     return await db('invoice').where('ID',orderID).update('IS_ACTIVE',1);
+// }
+
 module.exports = {
-    addInvoice,getInvoice
+    addInvoice,getInvoice,deleteInvoice
 };
 
 
