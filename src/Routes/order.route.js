@@ -7,5 +7,6 @@ const route = express.Router();
 route.post('/confirmOrder',orderCon.orderCon);
 route.get('/orderManage',orderCon.orderManage);
 route.post('/cancleorder', orderCon.cancleOrder);
+route.post('/orderagain', orderCon.orderAgain);
 
 module.exports = route;
