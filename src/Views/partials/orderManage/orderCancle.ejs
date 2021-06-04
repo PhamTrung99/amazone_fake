@@ -8,6 +8,7 @@
           <th>STATUS</th>
           <th>TOTAL_VND</th>
           <th>Total_USD</th>
+          <th></th>
       </tr>
   </thead>
   <tbody>
@@ -31,7 +32,10 @@
               color: orangered;
               font-size: 14px;"><%= moneyConvert(invoice.TOTAL_VND) %></td>
               <td><%= invoice.TOTAL_USD %></td>
+              <td><button onClick="handleOrderAgain(`<%= invoice.ID %>`)" class="btn btn-info">Order Again</button></td>
           </tr>
+         
           <% }})%>
   </tbody>
 </table>
+<script src="javascript/handleOrderAgain.js"></script>
