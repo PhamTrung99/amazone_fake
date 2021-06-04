@@ -12,8 +12,9 @@ function handleOnload() {
             `<div class="thumbnail" style="display: inline-flex;height: 4rem;">
             <img src="${res.image}" alt="">
             <div class="caption">
-              <p>${res.name}</p>
-              <p>Price: ${res.price}</p>
+              <p style="font-style: italic;
+              font-family: cursive;">${res.name}</p>
+              <p style="text-align: left;">Price: ${res.price}đ</p>
             </div>
           </div>`;
         })
