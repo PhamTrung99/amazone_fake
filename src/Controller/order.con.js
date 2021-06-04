@@ -1,7 +1,7 @@
 const { getCartInfo } = require('./cart.con');
 const mysqlDB = require('../Model/Mysql/invoice.mysql');
 const redisDB = require("../Model/Redis/cart.redis");
-const { getProductByObjectID } = require('../Model/Mongodb/products.mongo');
+const {moneyConvert} = require("../public/javascript/moneyConvert");
 
 const userid = "US01"; //Temporary binding for testing.
 
@@ -45,7 +45,7 @@ const orderManage = async (req, res) => {
 
     let invoiceList = await mysqlDB.getInvoice(userid);
 
-    res.status(200).render('pages/orderManage', {invoiceList});
+    res.status(200).render('pages/orderManage', {invoiceList, moneyConvert});
 }
 
 module.exports = {
