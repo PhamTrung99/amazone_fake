@@ -7,8 +7,11 @@ const userid = "US01"; //Temporary binding for testing.
 
 const getProduct = async (req, res) => {
     const proInfo = await mongoDB.getProductByObjectID(req.body._id);
-    console.log(proInfo);
-    res.status(200)
+    res.status(200).json({
+        name: proInfo.name,
+        image: proInfo.thumbnail_url,
+        price: proInfo.price
+    })
 }
 
 const productDetailCon = async (req, res) => {
