@@ -63,10 +63,10 @@
                 }
             }).done(function(data) {
                 if (data.existEmail === false) {
-                    $('#isExistEmail').append('Email chưa được đăng kí');
+                    $('#isExistEmail').html('Email chưa được đăng kí');
                 } else
                     if (data.correct_password === false) {
-                        $('#isExistPassword').append('Mật khẩu không chính xác');
+                        $('#isExistPassword').html('Mật khẩu không chính xác');
                     }
                     else {
                         $.ajax({

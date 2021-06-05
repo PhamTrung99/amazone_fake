@@ -50,11 +50,11 @@
             $('#btnCreateUser').on('click', function () {
                 let email = $('#email').val();
                 $.ajax({
-                    url: `/account/isExistEmail/${email}`,
+                    url: `/account/checkexistemail/${email}`,
                     type: 'GET',
                 }).done(function (data) {
                     if (data.isExist === true) {
-                        $('#isExistEmail').append('Email đã tồn tại');
+                        $('#isExistEmail').html('Email đã tồn tại');
                     } else {
                         const dataToPost = {
                             name: $('#username').val(),
@@ -62,25 +62,28 @@
                             password: $('#password').val()
                         };
 
-                        Swal.fire({
-                                title: 'Bạn muốn đăng kí tài khoản?',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                cancelButtonColor: '#d33',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Đăng kí',
-                                cancelButtonText: 'Hủy'
-                                }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $.ajax({
-                                        url: '/account/register',
-                                        type: 'POST',
-                                        data: dataToPost
+                        const repeatPass = $('#repeatpassword').val();
+                        if (repeatPass && repeatPass === dataToPost.password) {
+                            Swal.fire({
+                                    title: 'Bạn muốn đăng kí tài khoản?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Đăng kí',
+                                    cancelButtonText: 'Hủy'
+                                    }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            url: '/account/register',
+                                            type: 'POST',
+                                            data: dataToPost
+                                        })
+                                        
+                                        window.location.assign('/account/login');
+                                    }
                                     })
-                                    
-                                     window.location.assign('/account/login');
-                                }
-                                })
+                            }
                     }
                 })
             })
