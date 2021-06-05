@@ -1,6 +1,18 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
+const session = require('express-session');
+
+app.set('view engine', 'ejs');
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
+
 
 //Config something 
 require('./src/Config/Config')(app);
