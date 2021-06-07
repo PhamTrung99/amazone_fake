@@ -104,6 +104,57 @@ const getSeller = async (proID, comID) => {
     return Sellers;
 }
 
+const setComment = async (proID, userID, title, content, commentID, rating) => {
+    let session = driver.session();
+    try {
+     await session.run(`
+        CREATE (c:Comment{
+            productID:${proID},
+            rating: ${rating},
+            title: "${title}",
+            content: "${content}",
+            createby: "${userID}",
+            id:"${commentID}",
+            create_at: ${new Date().getTime()}})`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
 
-module.exports = { getAllComment, getCommentByProductID, getCommentImage, getCustomerComment, getSeller }
+const setRelationComtoPro = async (commentID,proID ) => {
+    let session = driver.session();
+    try {
+        await session.run(`
+        MATCH (c:Comment),(p:Product)
+        WHERE c.id = '${commentID}'
+            AND p.id = ${proID}
+        CREATE (c)-[:COMMENT_FOR]->(p)`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
+
+const checkExistsComment = async (userID, proID) => {
+    let session = driver.session();
+    try {
+         await session.run(`
+         MATCH (n:Comment)
+         WHERE n.productID= ${proID}
+          AND n.createby= '${userID}'
+          RETURN n`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
+
+
+
+module.exports = { getAllComment, getCommentByProductID, getCommentImage, 
+    getCustomerComment, getSeller, setComment, setRelationComtoPro, checkExistsComment }
 

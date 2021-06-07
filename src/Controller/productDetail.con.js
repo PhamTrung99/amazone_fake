@@ -37,7 +37,20 @@ const productDetailCon = async (req, res) => {
     res.render("pages/productDetail", { proInfo, price, comments, cmtImages, cmtCustomers, sellers, checkExistInCart });
 }
 
+const setComment = async(req, res) =>{
+    let proID = req.body.proID;
+    let title = req.body.title;
+    let content = req.body.content;
+    let rating = req.body.rating;
+    let commentID = String(userid)+String(proID);
+
+    let checkCommentExists = await ()
+    await neoDB.setComment(proID, userID, title, content, commentID, rating);
+    await neoDB.setRelationComtoPro(commentID,proID);
+    res.status(201).json({});
+} 
+
 
 module.exports = {
-    productDetailCon, getProduct
+    productDetailCon, getProduct, setComment
 };
