@@ -52,7 +52,7 @@ const getCommentImage = async (proID, comID) => {
         AND (c)-[:COMMENT_FOR]->(p)
         RETURN i`, {});
         result.records.forEach((singleRecord) => {
-            Images.push(singleRecord.get(0).properties);
+            images.push(singleRecord.get(0).properties);
         })
     } catch (error) {
         console.log(error);
@@ -141,7 +141,7 @@ const setRelationComtoPro = async (commentID,proID ) => {
 const checkExistsComment = async (userID, proID) => {
     let session = driver.session();
     try {
-         await session.run(`
+         var result = await session.run(`
          MATCH (n:Comment)
          WHERE n.productID= ${proID}
           AND n.createby= '${userID}'
@@ -151,6 +151,7 @@ const checkExistsComment = async (userID, proID) => {
     } finally {
         await session.close();
     }
+    return result;
 }
 
 
