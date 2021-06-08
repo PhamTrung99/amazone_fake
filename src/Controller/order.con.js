@@ -3,10 +3,9 @@ const mysqlDB = require('../Model/Mysql/invoice.mysql');
 const redisDB = require("../Model/Redis/cart.redis");
 const {moneyConvert} = require("../public/javascript/moneyConvert");
 
-const userid = "US01"; //Temporary binding for testing.
 
-const addInvoice = async () => {
-    let cartInfo = await getCartInfo();
+const addInvoice = async (userid) => {
+    let cartInfo = await getCartInfo(userid);
     let listProsID = [];
     let total_vnd = 0, total_usd = 0;
     cartInfo.map((proInfo) => {
@@ -32,10 +31,10 @@ const addInvoice = async () => {
 }
 
 const orderCon = async (req, res) => {
+    let userid = req.userid;
     let confirm = req.body.order_confirm;
-
     if (confirm) {
-        await addInvoice();
+        await addInvoice(userid);
     }
     
 }
@@ -56,7 +55,7 @@ const orderAgain = async (req, res) => {
 
 
 const orderManage = async (req, res) => {
-
+    let userid = req.userid;
     let invoiceList = await mysqlDB.getInvoice(userid);
     res.status(200).render('pages/orderManage', {invoiceList, moneyConvert});
 }
