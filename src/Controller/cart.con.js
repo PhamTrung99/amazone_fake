@@ -28,7 +28,7 @@ const getCartInfo = async (userid) => {
 const cartCon = async (req, res) => {
     let userid = req.userid;
     let cartInfo = await getCartInfo(userid);
-    res.render("pages/cart", { cartInfo, moneyConvert });
+    res.render("pages/cart", { userid,cartInfo, moneyConvert });
 }
 
 const addQuantityOfPro = async (req, res) => {
