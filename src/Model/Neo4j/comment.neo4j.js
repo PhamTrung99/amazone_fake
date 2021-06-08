@@ -196,11 +196,24 @@ const setCustomer = async (cusID, cusName, commentID) => {
     }
 }
 
-
+const setRelationCustoCom = async (CustomerID, CommentID) => {
+    let session = driver.session();
+    try {
+        await session.run(`
+        MATCH (c:Customer),(p:Comment)
+        WHERE c.id = '${CustomerID}'
+            AND p.id = ${CommentID}
+        CREATE (c)-[:COMMENT]->(p)`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
 
 module.exports = {
     getAllComment, getCommentByProductID, getCommentImage,
     getCustomerComment, getSeller, setComment, setRelationComtoPro, checkExistsComment,
-    checkExistsCustomer, setCustomer
+    checkExistsCustomer, setCustomer, setRelationCustoCom
 }
 
