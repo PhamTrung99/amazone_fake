@@ -3,7 +3,6 @@ const neoDB = require("../Model/Neo4j/comment.neo4j");
 const redisDB = require("../Model/Redis/cart.redis");
 const { moneyConvert } = require("../public/javascript/moneyConvert");
 
-const userid = "US01"; //Temporary binding for testing.
 
 const getProduct = async (req, res) => {
     const proInfo = await mongoDB.getProductByObjectID(req.body._id);
@@ -16,6 +15,7 @@ const getProduct = async (req, res) => {
 
 
 const productDetailCon = async (req, res) => {
+    let userid = req.userid;
     let cmtImages = [];
     let cmtCustomers = [];
     let sellers = [];
@@ -42,6 +42,7 @@ const productDetailCon = async (req, res) => {
 }
 
 const setComment = async(req, res) =>{
+    let userid = req.userid;
     let proID = req.body.proID;
     let title = req.body.title;
     let content = req.body.content;
