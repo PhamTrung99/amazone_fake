@@ -3,6 +3,7 @@ const {moneyConvert} = require("../public/javascript/moneyConvert");
 
 
 const homePageCon = async (req, res) => {
+    let userid = req.userid;
     let allPro = await mongoDB.getAllProducts();
     let _10Pro = [];
     let i = 0;
@@ -19,7 +20,7 @@ const homePageCon = async (req, res) => {
         _4proPerLine.push(temp1);
     }
     _4proPerLine.push(allPro);
-    res.render("pages/index", { _10Pro, _4proPerLine,moneyConvert});
+    res.render("pages/index", { _10Pro, _4proPerLine,moneyConvert, userid});
 }
 
 
