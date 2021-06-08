@@ -107,7 +107,7 @@ const getSeller = async (proID, comID) => {
 const setComment = async (proID, userID, title, content, commentID, rating) => {
     let session = driver.session();
     try {
-     await session.run(`
+        await session.run(`
         CREATE (c:Comment{
             productID:${proID},
             rating: ${rating},
@@ -123,7 +123,7 @@ const setComment = async (proID, userID, title, content, commentID, rating) => {
     }
 }
 
-const setRelationComtoPro = async (commentID,proID ) => {
+const setRelationComtoPro = async (commentID, proID) => {
     let session = driver.session();
     try {
         await session.run(`
@@ -140,8 +140,9 @@ const setRelationComtoPro = async (commentID,proID ) => {
 
 const checkExistsComment = async (userID, proID) => {
     let session = driver.session();
+    let flag = false;
     try {
-         var result = await session.run(`
+        var result = await session.run(`
          MATCH (n:Comment)
          WHERE n.productID= ${proID}
           AND n.createby= '${userID}'
@@ -151,11 +152,55 @@ const checkExistsComment = async (userID, proID) => {
     } finally {
         await session.close();
     }
-    return result;
+    if (result[0].createby == userID) {
+        flag = true;
+    }
+    return flag;
+}
+
+const checkExistsCustomer = async (cusID) => {
+    let session = driver.session();
+    let flag = false;
+    try {
+        var result = await session.run(`
+         MATCH (n:Customer)
+         WHERE n.id = ${cusID}
+          RETURN n`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+    if (result[0].id == cusID) {
+        flag = true;
+    }
+    return flag;
+}
+
+const setCustomer = async (cusID, cusName, commentID) => {
+    let session = driver.session();
+    try {
+        await session.run(`
+     CREATE(c:Customer{
+        created_time: ${new Date().getTime()},
+        full_name: ${cusName},
+        purchased: false,
+        name: ${cusName},
+        commentID: ${commentID},
+        avatar: "//tiki.vn/assets/img/avatar.png",
+        id: ${cusID}})`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
 }
 
 
 
-module.exports = { getAllComment, getCommentByProductID, getCommentImage, 
-    getCustomerComment, getSeller, setComment, setRelationComtoPro, checkExistsComment }
+module.exports = {
+    getAllComment, getCommentByProductID, getCommentImage,
+    getCustomerComment, getSeller, setComment, setRelationComtoPro, checkExistsComment,
+    checkExistsCustomer, setCustomer
+}
 
