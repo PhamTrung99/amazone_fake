@@ -38,7 +38,7 @@ const productDetailCon = async (req, res) => {
     if(checkCommentExists.createby == userid){
         checkCommentExists = true;
     }else{checkCommentExists = false}
-    res.render("pages/productDetail", { proInfo, price, comments, cmtImages, cmtCustomers, sellers, checkExistInCart, checkCommentExists });
+    res.render("pages/productDetail", {userid, proInfo, price, comments, cmtImages, cmtCustomers, sellers, checkExistInCart, checkCommentExists });
 }
 
 const setComment = async(req, res) =>{
