@@ -1,7 +1,10 @@
 const express = require('express');
 require('dotenv').config();
+const authUser = require('./src/middlewares/authUser.mdw');
+const getUserId = require('./src/middlewares/getUserId.mdw');
+
 const app = express();
-const session = require('express-session');
+
 
 //Config something 
 require('./src/Config/Config')(app);
@@ -10,19 +13,19 @@ require('./src/Config/Config')(app);
 app.use('/account', require('./src/Routes/account.route'));
 
 //homePage routes
-app.use('/',require('./src/Routes/homePage.route'));
+app.use('/',getUserId,require('./src/Routes/homePage.route'));
 
 //Product Detail routes
-app.use('/productdetail', require('./src/Routes/productDetail.route'));
+app.use('/productdetail', getUserId,require('./src/Routes/productDetail.route'));
 
 //Cart page routes
-app.use('/cart',require('./src/Routes/cart.route'));
+app.use('/cart',authUser,require('./src/Routes/cart.route'));
 
 //Order page routes
-app.use('/order',require('./src/Routes/order.route'));
+app.use('/order',authUser,require('./src/Routes/order.route'));
 
 //Test Connection route
-app.use('/connect', require('./src/Routes/testConnect.route'));
+app.use('/connect',require('./src/Routes/testConnect.route'));
 
 //exception page route
 app.use('/',require('./src/Routes/exeption.route'));
