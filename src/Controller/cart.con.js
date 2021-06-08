@@ -3,9 +3,8 @@ const mongoDB = require("../Model/Mongodb/products.mongo");
 const redisDB = require("../Model/Redis/cart.redis");
 const { moneyConvert } = require("../public/javascript/moneyConvert");
 
-const userid = "US01"; //Temporary binding for testing.
 
-const getCartInfo = async () => {
+const getCartInfo = async (userid) => {
     let hkey = 'CART:' + userid;
     const hashCart = await redisDB.getAllCartByHkey(hkey);
     let cartInfo = [];
@@ -27,11 +26,13 @@ const getCartInfo = async () => {
 }
 
 const cartCon = async (req, res) => {
-    let cartInfo = await getCartInfo();
+    let userid = req.userid;
+    let cartInfo = await getCartInfo(userid);
     res.render("pages/cart", { cartInfo, moneyConvert });
 }
 
 const addQuantityOfPro = async (req, res) => {
+    let userid = req.userid;
     let proID = req.body.proID;
     let value = req.body.value;
     await redisDB.addQuantityOfProduct('CART:' + userid, 'PRODUCT:' + proID, value);
@@ -40,12 +41,14 @@ const addQuantityOfPro = async (req, res) => {
 }
 
 const removePro = async (req, res) => {
+    let userid = req.userid;
     let proID = req.body.proID;
     await redisDB.removeProFromCart('CART:' + userid, 'PRODUCT:' + proID);
     res.status(200).json({});
 }
 
 const addToCart = async (req, res)=>{
+    let userid = req.userid;
     let proID = req.body.proID;
     let value = req.body.value;
     await redisDB.addCart('CART:' + userid, 'PRODUCT:' + proID, value);
