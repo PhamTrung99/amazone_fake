@@ -2,14 +2,13 @@
 <html lang="en">
 
 <head>
-	<% let home%> 
-	<%- include('../layouts/head.ejs')  %> 
+	<%- include('../layouts/head.ejs')%> 
 </head>
 
 <body>
 
 	<!--  ===================================Header=================================== -->
-	<%- include('../layouts/header.ejs')%>
+	<%- include('../layouts/header.ejs',{userid}); %>
 		<!--  ===================================Header END=================================== -->
 
 	<%- include('../partials/homePage/carouseBlk.ejs') %> 
