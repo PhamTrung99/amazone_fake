@@ -57,7 +57,7 @@ const orderAgain = async (req, res) => {
 const orderManage = async (req, res) => {
     let userid = req.userid;
     let invoiceList = await mysqlDB.getInvoice(userid);
-    res.status(200).render('pages/orderManage', {invoiceList, moneyConvert});
+    res.status(200).render('pages/orderManage', {userid,invoiceList, moneyConvert});
 }
 
 module.exports = {
