@@ -8,7 +8,7 @@
 <body>
 
 	<!--  ===================================Header=================================== -->
-	<%- include('../layouts/header.ejs')%>
+	<%- include('../layouts/header.ejs',{userid})%>
 		<!--  ===================================Header END=================================== -->
 		<div id="mainBody">
 			<div class="container">
@@ -21,14 +21,16 @@
 							<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 							<li class="active" > SHOPPING CART</li>
 						</ul>
-						<h3 style="font-family: cursive;">  SHOPPING CART [ <small>3 Item(s) </small>]</h3>			
+						<h3 style="font-family: cursive;">  SHOPPING CART </h3>			
 								
 							<%- include('../partials/cart/cartDetail.ejs',{cartInfo, moneyConvert}) %> 
 						
 							<a href="/" class="btn btn-large pull-left"><i class="icon-arrow-left"></i> Continue Shopping </a>
+							<% if(cartInfo.length > 0 ){ %> 
 						<a href="/order/orderManage"><button onclick="handleOrderNow()"  class="btn btn-large pull-right" >
 							Order now<i class="icon-arrow-right"></i>
 						</button></a>
+						<% } %> 
 						<script src="javascript/handleOrderNow.order.js"></script>	
 					</div>
 				</div>
