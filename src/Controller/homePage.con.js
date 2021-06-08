@@ -20,7 +20,7 @@ const homePageCon = async (req, res) => {
         _4proPerLine.push(temp1);
     }
     _4proPerLine.push(allPro);
-    res.render("pages/index", { _10Pro, _4proPerLine,moneyConvert, userid});
+    res.render("pages/index", { _10Pro, _4proPerLine,moneyConvert, userid });
 }
 
 
