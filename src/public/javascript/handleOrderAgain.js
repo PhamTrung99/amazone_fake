@@ -5,6 +5,5 @@ function handleOrderAgain(orderID){
         data:{
             orderID: orderID
         }
-    });
-    setTimeout(window.location.reload(),1000);
+    }).done(()=>setTimeout(window.location.reload(),1000));
 }
