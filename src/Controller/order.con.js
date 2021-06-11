@@ -42,14 +42,12 @@ const orderCon = async (req, res) => {
 const cancleOrder = async (req, res) => {
     let orderID = req.body.orderID;
     await mysqlDB.deleteInvoice(orderID);
-
     res.status(201).json({});
 }
 
 const orderAgain = async (req, res) => {
     let orderID = req.body.orderID;
     await mysqlDB.orderAgain(orderID);
-
     res.status(201).json({});
 }
 
