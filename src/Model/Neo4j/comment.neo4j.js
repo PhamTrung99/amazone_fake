@@ -47,7 +47,7 @@ const getCommentImage = async (proID, comID) => {
     try {
         var result = await session.run(`
         MATCH (i:Image),(c:Comment),(p:Product)
-        WHERE c.id = ${comID} AND p.id = ${proID}
+        WHERE c.id = "${comID}" AND p.id = ${proID}
         AND (c)-[:CMT_IMAGE]->(i) 
         AND (c)-[:COMMENT_FOR]->(p)
         RETURN i`, {});
@@ -68,7 +68,7 @@ const getCustomerComment = async (proID, comID) => {
     try {
         var result = await session.run(`
         MATCH (cus:Customer),(com:Comment),(p:Product)
-        WHERE com.id =  ${comID}  AND p.id = ${proID}
+        WHERE com.id =  "${comID}"  AND p.id = ${proID}
         AND (cus)-[:COMMENT]->(com)
         AND (com)-[:COMMENT_FOR]->(p)
         RETURN cus`, {});
@@ -89,7 +89,7 @@ const getSeller = async (proID, comID) => {
     try {
         var result = await session.run(`
         MATCH (com:Comment),(p:Product),(s:Seller)
-        WHERE com.id =  ${comID}  AND p.id = ${proID}
+        WHERE com.id =  "${comID}"  AND p.id = ${proID}
         AND (s)-[:SELL]->(p)
         AND (com)-[:COMMENT_FOR]->(p)
         RETURN s`, {});
@@ -128,7 +128,7 @@ const setRelationComtoPro = async (commentID, proID) => {
     try {
         await session.run(`
         MATCH (c:Comment),(p:Product)
-        WHERE c.id = '${commentID}'
+        WHERE c.id = "${commentID}"
             AND p.id = ${proID}
         CREATE (c)-[:COMMENT_FOR]->(p)`, {});
     } catch (error) {
@@ -145,14 +145,14 @@ const checkExistsComment = async (userID, proID) => {
         var result = await session.run(`
          MATCH (n:Comment)
          WHERE n.productID= ${proID}
-          AND n.createby= '${userID}'
+          AND n.createby= "${userID}"
           RETURN n`, {});
     } catch (error) {
         console.log(error);
     } finally {
         await session.close();
     }
-    if (result[0].createby == userID) {
+    if (result.records.length > 0) {
         flag = true;
     }
     return flag;
@@ -164,14 +164,14 @@ const checkExistsCustomer = async (cusID) => {
     try {
         var result = await session.run(`
          MATCH (n:Customer)
-         WHERE n.id = ${cusID}
+         WHERE n.id = "${cusID}"
           RETURN n`, {});
     } catch (error) {
         console.log(error);
     } finally {
         await session.close();
     }
-    if (result[0].id == cusID) {
+    if (result.records.length > 0) {
         flag = true;
     }
     return flag;
@@ -182,13 +182,12 @@ const setCustomer = async (cusID, cusName, commentID) => {
     try {
         await session.run(`
      CREATE(c:Customer{
-        created_time: ${new Date().getTime()},
-        full_name: ${cusName},
-        purchased: false,
-        name: ${cusName},
-        commentID: ${commentID},
+        created_time: "${new Date()}",
+        full_name: "${cusName}",
+        purchased: true,
+        name: "${cusName}",
         avatar: "//tiki.vn/assets/img/avatar.png",
-        id: ${cusID}})`, {});
+        id: "${cusID}"})`, {});
     } catch (error) {
         console.log(error);
     } finally {
@@ -201,8 +200,8 @@ const setRelationCustoCom = async (CustomerID, CommentID) => {
     try {
         await session.run(`
         MATCH (c:Customer),(p:Comment)
-        WHERE c.id = '${CustomerID}'
-            AND p.id = ${CommentID}
+        WHERE c.id = "${CustomerID}"
+            AND p.id = "${CommentID}"
         CREATE (c)-[:COMMENT]->(p)`, {});
     } catch (error) {
         console.log(error);
