@@ -1,10 +1,10 @@
 function handleCancleOrder(orderID){
     $.ajax({
         type:"POST",
-        url:"/order/cancleorder" ,
+        url:"/order/cancleorder",
         data:{
             orderID: orderID
         }
-    });
-    setTimeout(window.location.reload(),1000);
+    }).done(()=>setTimeout(window.location.reload(),1000));
 }
+   
