@@ -5,5 +5,5 @@ function handleRemove(proID){
         data:{
             proID: proID
         }
-    }).done(setTimeout(window.location.reload(),500));
+    }).done(()=> setTimeout(window.location.reload(),1000));
 }
