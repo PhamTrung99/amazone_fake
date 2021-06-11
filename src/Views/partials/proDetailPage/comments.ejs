@@ -1,21 +1,21 @@
 <div class="row">
-    <h4 style="font-size: 24px;font-family: cursive;margin-top: 30px;margin-bottom: 18px;">COMMENTS</h4>
+    <h4 style="font-size: 24px;margin-top: 30px;margin-bottom: 18px;">COMMENTS</h4>
 
     <% comments.forEach((comment)=>{ %>
         <div class="row" style="border-bottom-style: inset;border-width: 2px;padding-top: 8px;">
             <div class="span3">
                 <% cmtCustomers.forEach((customer)=>{ %>
-                    <% if(String(customer[0].commentID)==String(comment.id)){ %>
+                    <% if(customer[0].id === comment.createby){ %>
                         <div class="row" style="display: inline-flex">
                             <div class="col-md-auto">
                                 <img src="<%= customer[0].avatar %>" alt="" style="border-radius: 40px;">
                             </div>
                             <div class="col-md-auto"
-                                style="padding-top: 25px;padding-left: 14px;font-family: cursive;font-size: 20px;font-weight: 600;">
+                                style="padding-top: 25px;padding-left: 14px;font-size: 20px;font-weight: 600;">
                                 <%= customer[0].name %>
                             </div>
                         </div>
-                        <div class="row" style="font-family: cursive;font-size: 12px;color: gray;">
+                        <div class="row" style="font-size: 12px;color: gray;">
                             Join in <%= customer[0].created_time %>
                         </div>
 
@@ -60,7 +60,7 @@
                                     <% }) %>
                     </div>
                 </div>
-                <div class="row" style="font-family: cursive;font-size: 12px;color: gray;padding-bottom: 25px;">
+                <div class="row" style="font-size: 12px;color: gray;padding-bottom: 25px;">
                     Comment on <%= new Date(comment.create_at*1000).toLocaleString() %>
                 </div>
 
