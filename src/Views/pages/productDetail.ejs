@@ -25,8 +25,8 @@
 							<%- include('../partials/proDetailPage/productInfo.ejs',{proInfo, price, comments,cmtImages,cmtCustomers,sellers }) %>
 						</div>
 				</div>
-				<%- include('../partials/proDetailPage/comments.ejs',{proInfo, price, comments,cmtImages,cmtCustomers,sellers }) %>
-				<%- include('../partials/proDetailPage/myComment.ejs',{proInfo, checkCommentExists}) %>
+				<%- include('../partials/proDetailPage/comments.ejs',{proInfo, price, comments,cmtImages,cmtCustomers,sellers,userid }) %>
+				<%- include('../partials/proDetailPage/myComment.ejs',{proInfo, checkCommentExists,userid}) %>
 
 			</div>
 		</div>
