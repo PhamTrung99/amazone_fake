@@ -35,21 +35,25 @@ const productDetailCon = async (req, res) => {
         sellers.push(seller);
     };
     let checkCommentExists = await neoDB.checkExistsComment(userid, proInfo.id);
-    if(checkCommentExists.createby == userid){
-        checkCommentExists = true;
-    }else{checkCommentExists = false}
+
     res.render("pages/productDetail", {userid, proInfo, price, comments, cmtImages, cmtCustomers, sellers, checkExistInCart, checkCommentExists });
 }
 
 const setComment = async(req, res) =>{
     let userid = req.userid;
-    let proID = req.body.proID;
+    let username = req.username;
+    let proID = req.body.proid;
     let title = req.body.title;
     let content = req.body.content;
     let rating = req.body.rating;
     let commentID = String(userid)+String(proID);
 
-    await neoDB.setComment(proID, userID, title, content, commentID, rating);
+    let checkCusExists = await neoDB.checkExistsCustomer(userid);
+    if(checkCusExists == false){
+        await neoDB.setCustomer(userid,username,commentID);
+    }
+    await neoDB.setComment(proID, userid, title, content, commentID, rating);
+    await neoDB.setRelationCustoCom(userid,commentID);
     await neoDB.setRelationComtoPro(commentID,proID);
     res.status(201).json({});
 } 
