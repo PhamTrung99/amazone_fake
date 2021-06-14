@@ -2,6 +2,8 @@ const express = require('express');
 require('dotenv').config();
 const authUser = require('./src/middlewares/authUser.mdw');
 const getUserId = require('./src/middlewares/getUserId.mdw');
+const tempForTest = require('./src/middlewares/tempForTest.mdw');
+
 
 const app = express();
 
@@ -13,16 +15,16 @@ require('./src/Config/Config')(app);
 app.use('/account', require('./src/Routes/account.route'));
 
 //homePage routes
-app.use('/',getUserId,require('./src/Routes/homePage.route'));
+app.use('/',tempForTest,require('./src/Routes/homePage.route'));
 
 //Product Detail routes
-app.use('/productdetail', getUserId,require('./src/Routes/productDetail.route'));
+app.use('/productdetail', tempForTest,require('./src/Routes/productDetail.route'));
 
 //Cart page routes
-app.use('/cart',authUser,require('./src/Routes/cart.route'));
+app.use('/cart',tempForTest,require('./src/Routes/cart.route'));
 
 //Order page routes
-app.use('/order',authUser,require('./src/Routes/order.route'));
+app.use('/order',tempForTest,require('./src/Routes/order.route'));
 
 //Test Connection route
 app.use('/connect',require('./src/Routes/testConnect.route'));
