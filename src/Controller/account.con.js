@@ -47,7 +47,10 @@ class accountCon {
         if (existEmail.rows.length === 0) {
             res.json({isExist: false})
         } else {
-            res.json({isExist: true})
+            res.json({
+                isExist: true,
+                user: existEmail.rows[0]
+            })
         }
     }
 

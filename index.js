@@ -21,6 +21,8 @@ require('./src/Config/Config')(app);
 
 app.use('/account', require('./src/Routes/account.route'));
 
+app.use('/admin', require('./src/Routes/admin.route'));
+
 //homePage routes
 app.use('/',require('./src/Routes/homePage.route'));
 
