@@ -29,7 +29,19 @@ const getProductByObjectID = async (_id) => {
     return product;
 }
 
-module.exports = { getAllProducts,getProductByObjectID }
+const addProduct = async (data) => {
+    await productModel.create(data);
+}
+
+const updateProduct = async (data) => {
+    await productModel.findOneAndUpdate({_id : data._id}, data);
+}
+
+const deleteProduct = async (id) => {
+    await productModel.findByIdAndRemove(id);
+}
+
+module.exports = { getAllProducts,getProductByObjectID, addProduct, updateProduct, deleteProduct }
 
 
 

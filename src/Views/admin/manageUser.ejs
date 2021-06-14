@@ -183,12 +183,12 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
             <div class="modal-header">						
-                <h4 class="modal-title">Xóa người dùng</h4>
+                <h4 class="modal-title">Delete User</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">					
                 <p id="infoDelete"></p> 
-                <p class="text-warning"><small>Thao tác sẽ không được khôi phục</small></p>
+                <p class="text-warning"><small>This action cannot be undone.</small></p>
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -228,7 +228,7 @@
                         $('#roleEdit').append("<option value=\"1\">User</option>");
                     }
 
-                    $('#infoDelete').html(`Bạn có chắc muốn xóa người dùng <b style="color: red"> ${data.user.name} </b>`)
+                    $('#infoDelete').html(`Are you sure you want to delete user <b style="color: red"> ${data.user.name} </b>?`)
 
                 })
 
@@ -253,7 +253,7 @@
                         if (result.isConfirmed) {
                             $.ajax({
                             url: '/admin/updateuser',
-                            type: 'POST',
+                            type: 'PATCH',
                             data: dataUser
                         }).done(function(data) {
                             Swal.fire({
@@ -324,7 +324,7 @@
 
             })
 
-            
+            $('.tab-manage-user').addClass('active');
         });
     </script>
 </body>

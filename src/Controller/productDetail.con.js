@@ -6,6 +6,11 @@ const productDetailCon = async (req, res) => {
     res.render("pages/productDetail",{proInfo});
 }
 
+const getProductById = async (req, res) => {
+    const product = await getProductByObjectID(req.params.objId);
+    res.json(product);
+}
+
 module.exports = {
-    productDetailCon
+    productDetailCon, getProductById
 };
