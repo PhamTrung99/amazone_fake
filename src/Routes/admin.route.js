@@ -11,9 +11,9 @@ route.delete('/deleteuser/:email', adminCon.deleteUser);
 
 // ---------------Manage Product
 route.get('/manageproduct', adminCon.manageProduct);
-route.patch('updateproduct', adminCon.updateUser);
-route.delete('deleteproduct', adminCon.deleteUser);
-route.post('addproduct', adminCon.addProduct);
+route.patch('/updateproduct', adminCon.updateProduct);
+route.delete('/deleteproduct/:id', adminCon.deleteProduct);
+route.post('/addproduct', adminCon.addProduct);
 
 
 

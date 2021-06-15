@@ -147,11 +147,11 @@ class adminCon {
         await addProduct(dataToPost);
     }
 
-    async updateProduct (){
+    async updateProduct (req, res){
         await updateProduct(req.body)
     }
 
-    async deleteProduct () {
+    async deleteProduct (req, res) {
         await deleteProduct(req.params.id)
     }
 
