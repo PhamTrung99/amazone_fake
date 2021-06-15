@@ -13,9 +13,10 @@ const getAllComment = async () => {
     let session = driver.session();
     let commentLists = [];
     try {
-        var result = await session.run('MATCH (p:Comment) RETURN p LIMIT 5', {});
+        var result = await session.run('MATCH (p:Comment) RETURN p', {});
         result.records.forEach((singleRecord) => {
             commentLists.push(singleRecord.get(0).properties);
+            commentLists.id = singleRecord.get(0).identity;
         })
     } catch (error) {
         console.log(error);
@@ -25,7 +26,19 @@ const getAllComment = async () => {
     return commentLists;
 }
 
+const deleteComment = async (id) => {
+    let session = driver.session();
+    try {
+        await session.run(`MATCH (p:Comment {id: '${id}'}) DELETE p`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
 
 
-module.exports = { getAllComment }
+
+
+module.exports = { getAllComment, deleteComment }
 

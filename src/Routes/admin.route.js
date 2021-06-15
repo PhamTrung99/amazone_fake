@@ -15,6 +15,9 @@ route.patch('/updateproduct', adminCon.updateProduct);
 route.delete('/deleteproduct/:id', adminCon.deleteProduct);
 route.post('/addproduct', adminCon.addProduct);
 
+// ---------------Manage Comment
+route.get('/managecomment', adminCon.manageComment);
+
 
 
 module.exports = route;

@@ -1,5 +1,6 @@
 const User = require('../Model/Cassandra/user.cassandra');
 const { getAllProducts, addProduct, updateProduct, deleteProduct } = require("../Model/Mongodb/products.mongo");
+const {getAllComment, deleteComment} = require('../Model/Neo4j/comment.neo4j');
 
 const moment = require('moment');
 
@@ -153,6 +154,21 @@ class adminCon {
 
     async deleteProduct (req, res) {
         await deleteProduct(req.params.id)
+    }
+
+
+    // ---------------Manage Comment
+
+    async manageComment (req, res) {
+        const allComment = await getAllComment();
+        res.render('admin/manageComment', {
+            layout: false,
+            allComment
+        })
+    }
+
+    async deleteComment(req, res) {
+        await deleteComment(req.params.id);
     }
 
 }
