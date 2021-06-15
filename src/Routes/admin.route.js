@@ -17,6 +17,8 @@ route.post('/addproduct', adminCon.addProduct);
 
 // ---------------Manage Comment
 route.get('/managecomment', adminCon.manageComment);
+route.patch('/lockcomment', adminCon.lockComment);
+route.delete('/deletecomment/:id', adminCon.deleteComment);
 
 
 

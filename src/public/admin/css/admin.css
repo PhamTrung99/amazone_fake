@@ -1,22 +1,27 @@
 .btnEdit {
     color: #5bc0de;
-    text-shadow: 1px 1px 4px rgb(159, 131, 235);
-}
-
-.btnEdit:hover {
-    color: aqua;
-    cursor: pointer;
 }
 
 .btnDelete {
     color: #dc3545;
-    text-shadow: 1px 1px 4px rgb(247, 0, 0);
 }
 
-.btnDelete:hover {
-    color:rgb(255, 91, 123);
+
+.btnInfo {
+    color: #17a2b8;
+}
+
+
+.btnLock {
+    color: #27c981;
+}
+
+.btnEdit:hover, .btnDelete:hover, .btnInfo:hover, .btnLock:hover {
+    opacity: 0.4;
     cursor: pointer;
 }
+
+
 
 .modal-title {
     font-size: 25px;
@@ -83,3 +88,4 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+

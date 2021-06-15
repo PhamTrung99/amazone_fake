@@ -23,6 +23,8 @@ app.use('/account', require('./src/Routes/account.route'));
 
 app.use('/admin', require('./src/Routes/admin.route'));
 
+app.use('/comment', require('./src/Routes/comment.route'));
+
 //homePage routes
 app.use('/',require('./src/Routes/homePage.route'));
 

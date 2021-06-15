@@ -54,11 +54,12 @@
                                                         <td class="custom-display"><%= comment.title %></td>
                                                         <td class="custom-display"><%= comment.content %></td>
                                                         <td><%= comment.rating %></td>
-                                                        <td><%= comment.create_at.toLocaleString() %></td>
+                                                        <td><%= comment.create_at %></td>
                                                         <td><%= comment.status %></td>
                                                         <td>
-                                                            <a href="#editComment" class="btnEdit" data-toggle="modal"><i class="material-icons" title="Edit">&#xE254;</i></a>
-                                                            <a href="#deleteComment" class="btnDelete" data-toggle="modal"><i class="material-icons" title="Edit">&#xE872;</i></a>
+                                                            <a href="#infoComment" class="btnInfo" data-toggle="modal"><i class="material-icons" title="Detail">info</i></a>                          
+                                                            <a href="#lockComment" class="btnLock" data-toggle="modal"><i class="material-icons" title="Lock">lock</i></a>
+                                                            <a href="#deleteComment" class="btnDelete" data-toggle="modal"><i class="material-icons" title="Delete">&#xE872;</i></a>
                                                         </td>
                                                     </tr>
                                                 <% }) %>
@@ -81,79 +82,67 @@
 		</div>
     </div>
 
-    <!-- Add Modal HTML -->
-<div id="addComment" class="modal fade">
+
+<!-- Edit Modal HTML -->
+<div id="infoComment" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <div class="modal-header">						
-                <h4 class="modal-title">Add Comment</h4>
+                <h4 class="modal-title">Comment Detail</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body">				
+            <div class="modal-body">
                 <div class="form-group">
-                    <label for="nameAdd" >Name</label>
-                    <input type="text" id="nameAdd" name="nameAdd" class="form-control" required>
+                    <label for="id">ID</label>
+                    <input type="text" id="id" name="id" class="form-control">
+                </div>					
+                <div class="form-group">
+                    <label for="rating" >Rating</label>
+                    <input type="text" id="rating" name="rating" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label for="emailAdd">Email</label>
-                    <input type="email" id="emailAdd" name="emailAdd" class="form-control" required>
-\                </div>	
+                    <label for="title">Title</label>
+                    <textarea class="form-control" id="title" name="title" ></textarea>
+                </div>
                 <div class="form-group">
-                    <label for="passwordAdd">Password</label>
-                    <input type="text" id="passwordAdd" name="passwordAdd" class="form-control" required>
-                </div>					
+                    <label for="content">Content</label>
+                    <textarea class="form-control" id="content" name="content" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="create_by">Create by</label>
+                    <input type="text" id="create_by" name="create_by" class="form-control">
+                </div>				
+                <div class="form-group">
+                    <label for="create_at">Create at</label>
+                    <input type="text" id="create_at" name="create_at" class="form-control">
+                </div>		
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <input type="text" id="status" name="status" class="form-control">
+                </div>		
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                <button class="btn btn-info" id="btnAddUser">Add</button>
             </div>
 		</div>
 	</div>
 </div>
 
-<!-- Edit Modal HTML -->
-<div id="editComment" class="modal fade">
+<!-- Lock Modal HTML -->
+<div id="lockComment" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
             <div class="modal-header">						
-                <h4 class="modal-title">Edit Comment</h4>
+                <h4 class="modal-title">Lock/Unlock Comment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="emailEdit">Email</label>
-                    <input type="email" id="emailEdit" name="emailEdit" class="form-control" readonly="true">
-                    <span class="form-message"></span><span class="message-clone">0</span>
-                </div>					
-                <div class="form-group">
-                    <label for="nameEdit" >Name</label>
-                    <input type="text" id="nameEdit" name="nameEdit" class="form-control">
-                    <span class="form-message"></span><span class="message-clone">0</span>
-                </div>
-                <div class="form-group">
-                    <label for="addressEdit">Address</label>
-                    <textarea class="form-control" id="addressEdit" name="addressEdit" ></textarea>
-                    <span class="form-message"></span><span class="message-clone">0</span>
-                </div>
-                <div class="form-group">
-                    <label for="phoneEdit">Phone</label>
-                    <input type="text" id="phoneEdit" name="phoneEdit" class="form-control">
-                    <span class="form-message"></span><span class="message-clone">0</span>
-                </div>		
-                <div class="form-group">
-                    <label>Role</label>
-                    <select class="form-control" name="roleEdit" id="roleEdit">
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Status</label>
-                    <select class="form-control" name="statusEdit" id="statusEdit">
-                    </select>
-                </div>				
+            <div class="modal-body">					
+                <p id="infoLock"></p> 
+                <p class="text-warning"><small>This action cannot be undone.</small></p>
             </div>
             <div class="modal-footer">
                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                <button class="btn btn-info" id="btnUpdate">Update</button>
+                <button class="btn btn-success" id="btnLock">Lock/Unlock</button>
             </div>
 		</div>
 	</div>
@@ -184,126 +173,62 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // $(document).on("click", ".dataUser", function(){		
-            //     var email = $(this).find("td").eq(1).html(); 
-            //     $.ajax({
-            //         url: `/account/checkexistemail/${email}`,
-            //         type: 'GET',
-            //     }).done(function (data) {
-            //         $('#nameEdit').val(data.user.name);
-            //         $('#emailEdit').val(data.user.email);
-            //         $('#addressEdit').val(data.user.address);
-            //         $('#phoneEdit').val(data.user.phone);
-            //         if (data.user.status === 1) {
-            //             $('#statusEdit').html("<option value=\"1\">Actived</option>");
-            //             $('#statusEdit').append("<option value=\"0\">Block</option>");
-            //         } else {
-            //             $('#statusEdit').html("<option value=\"0\">Block</option>");
-            //             $('#statusEdit').append("<option value=\"1\">Actived</option>");
-            //         }
-            //         if (data.user.role === 1) {
-            //             $('#roleEdit').html("<option value=\"1\">User</option>");
-            //             $('#roleEdit').append("<option value=\"0\">Admin</option>");
-            //         } else {
-            //             $('#roleEdit').html("<option value=\"0\">Admin</option>");
-            //             $('#roleEdit').append("<option value=\"1\">User</option>");
-            //         }
+            $(document).on("click", ".dataComment", function(){		
+                var commentId = $(this).find("td").eq(0).html(); 
+                $.ajax({
+                    url: `/comment/${commentId}`,
+                    type: 'GET',
+                }).done(function (data) {
+                    
+                    $('#id').val(data.id);
+                    $('#rating').val(data.rating.low);
+                    $('#title').val(data.title);
+                    $('#content').val(data.content);
+                    $('#create_by').val(data.createby);
+                    $('#create_at').val(data.create_at.low);
+                    $('#status').val(data.status);
 
-            //         $('#infoDelete').html(`Are you sure you want to delete user <b style="color: red"> ${data.user.name} </b>?`)
+                    $('#infoDelete').html(`Are you sure you want to delete comment <b style="color: red"> ${data.id} </b>?`)
+                    $('#infoLock').html(`Are you sure you want to lock/unlock comment <b style="color: red"> ${data.id} </b>?`)
 
-            //     })
+                })
 
-            //     $('#btnUpdate').on('click', function() {
-            //         const dataUser = {
-            //         name: $('#nameEdit').val(),
-            //         email: $('#emailEdit').val(),
-            //         address: $('#addressEdit').val(),
-            //         phone: $('#phoneEdit').val(),
-            //         role: $('#roleEdit').children("option:selected").val(),
-            //         status: $('#statusEdit').children("option:selected").val()
-            //     }
-            //         Swal.fire({
-            //         title: 'Bạn muốn update thông tin ?',
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         cancelButtonColor: '#d33',
-            //         confirmButtonColor: '#3085d6',
-            //         confirmButtonText: 'Update',
-            //         cancelButtonText: 'Hủy'
-            //         }).then((result) => {
-            //             if (result.isConfirmed) {
-            //                 $.ajax({
-            //                 url: '/admin/updateuser',
-            //                 type: 'PATCH',
-            //                 data: dataUser
-            //             }).done(function(data) {
-            //                 Swal.fire({
-            //                     icon: 'success',
-            //                     title: 'Cập nhật thành công',
-            //                     showConfirmButton: false,
-            //                     timer: 1500
-            //                     })
-            //                 })
-            //                 setTimeout(() => {
-            //                     window.location.reload();
-            //                 }, 1000);
-            //             }
-            //         })
-            //     })
+                $('#btnLock').on('click', function() {
+                    $.ajax({
+                        url: '/admin/lockcomment',
+                        type: 'PATCH',
+                        data: {
+                            id: commentId,
+                            status: $('#status').val() === "approved" ? "lock" : "approved"
+                        }
+                    })
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Update successfully!',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                })
 
-            //     $('#btnDelete').on('click', function() {
-            //         $.ajax({
-            //             url: `/admin/deleteuser/${email}`,
-            //             type: 'DELETE'
-            //         })
-            //         Swal.fire({
-            //             icon: 'success',
-            //             title: 'Xóa thành công',
-            //             showConfirmButton: false,
-            //             timer: 1500
-            //             })
-            //         setTimeout(() => {
-            //             window.location.reload();
-            //         }, 1000);
-            //     })
-            // });
-
-            // $('#btnAddUser').on('click', function() {
-            //     const dataToPost = {
-            //         name: $('#nameAdd').val(),
-            //         email: $('#emailAdd').val(),
-            //         password: $('#passwordAdd').val()
-            //     };
-            //     if (!dataToPost.name || !dataToPost.email || !dataToPost.password) {
-            //         alert('Vui Lòng điền dầy đủ thông tin!')
-            //     } else {
-            //         $.ajax({
-            //             url: `/account/checkexistemail/${dataToPost.email}`,
-            //             type: 'GET',
-            //         }).done(function (data) {
-            //             if (data.isExist === true) {
-            //                 alert('Error: Email đã tồn tại!');
-            //             } else {
-            //                 $.ajax({
-            //                     url: '/account/register',
-            //                     type: 'POST',
-            //                     data: dataToPost
-            //                 })
-            //                 Swal.fire({
-            //                         icon: 'success',
-            //                         title: 'Thêm thành công',
-            //                         showConfirmButton: false,
-            //                         timer: 1500
-            //                         })
-            //                     setTimeout(() => {
-            //                         window.location.reload();
-            //                     }, 1000);
-
-            //                 }
-            //             })
-            //         }
-
-            // })
+                $('#btnDelete').on('click', function() {
+                    $.ajax({
+                        url: `/admin/deletecomment/${commentId}`,
+                        type: 'DELETE'
+                    })
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Delete successfully!',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                })
+            });
 
         });
     </script>

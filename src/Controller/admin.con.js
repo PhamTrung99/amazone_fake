@@ -1,6 +1,6 @@
 const User = require('../Model/Cassandra/user.cassandra');
 const { getAllProducts, addProduct, updateProduct, deleteProduct } = require("../Model/Mongodb/products.mongo");
-const {getAllComment, deleteComment} = require('../Model/Neo4j/comment.neo4j');
+const {getAllComment, deleteComment, lockComment} = require('../Model/Neo4j/comment.neo4j');
 
 const moment = require('moment');
 
@@ -165,6 +165,10 @@ class adminCon {
             layout: false,
             allComment
         })
+    }
+
+    async lockComment (req, res) {
+        await lockComment(req.body);
     }
 
     async deleteComment(req, res) {
