@@ -1,8 +1,8 @@
 <div id="header">
     <div class="container">
         <div id="welcomeLine" class="row">
-            <div class="span6">Welcome!<strong>    
-                    <%= userid %>        
+            <div class="span6">Welcome!<strong>
+                    <%= userid %>
                 </strong></div>
             <div class="span6">
             </div>
@@ -16,37 +16,37 @@
             </a>
             <div class="navbar-inner">
                 <a class="brand" href="/"><img src="themes/images/logo.png" alt="Amazone" /></a>
-                <form class="form-inline navbar-search" method="post" action="products.html">
-                    <input id="srchFld" class="srchTxt" type="text" />
-                    <select class="srchTxt">
-                        <option>All</option>
-                        <option>CLOTHES </option>
-                        <option>FOOD AND BEVERAGES </option>
-                        <option>HEALTH & BEAUTY </option>
-                        <option>SPORTS & LEISURE </option>
-                        <option>BOOKS & ENTERTAINMENTS </option>
-                    </select>
-                    <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-                </form>
+                <input id="searchInput" onkeyup="handleSearchText()" placeholder="Seach..." type="text"
+                    style="padding-right: 26rem;margin-bottom: -19px;" />
+                <span class="badge badge-info" id="span_result"></span>
                 <ul id="topMenu" class="nav pull-right">
                     <% if(userid!=null){ %>
                         <li class=""><a href="/order/orderManage">My order</a></li>
                         <li class=""><a href="/cart">Cart</a></li>
                         <% }; %>
                             <li class="">
-                                <% if(userid == null){ %>
+                                <% if(userid==null){ %>
                                     <a href="/account/login" role="button" data-toggle="modal"
                                         style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-                                <% } %>
-                                <% if(userid != null){ %>
-                                        <a href="/account/logout" role="button" data-toggle="modal"
-                                            style="padding-right:0"><span
-                                                class="btn btn-large btn-info">Logout</span></a>
-                                <% } %>
-                                       
+                                    <% } %>
+                                        <% if(userid !=null){ %>
+                                            <a href="/account/logout" role="button" data-toggle="modal"
+                                                style="padding-right:0"><span
+                                                    class="btn btn-large btn-info">Logout</span></a>
+                                            <% } %>
+
                             </li>
                 </ul>
+            </div>
+            <div id="ul_search" style="
+            background-color: whitesmoke;
+            margin-left: 16rem;
+            width: 39rem;max-height: 9rem;overflow: scroll;color: black;
+font-size: inherit;
+font-weight: bold;">
+
             </div>
         </div>
     </div>
 </div>
+<script src="javascript/handleSearchText"></script>
