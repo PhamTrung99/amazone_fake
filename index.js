@@ -17,6 +17,9 @@ app.use('/account', require('./src/Routes/account.route'));
 //homePage routes
 app.use('/',tempForTest,require('./src/Routes/homePage.route'));
 
+//search post route
+app.use('/search', require('./src/Routes/search.route'));
+
 //Product Detail routes
 app.use('/productdetail', tempForTest,require('./src/Routes/productDetail.route'));
 
