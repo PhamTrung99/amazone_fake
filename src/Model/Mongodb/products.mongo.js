@@ -29,7 +29,31 @@ const getProductByObjectID = async (_id) => {
     return product;
 }
 
-module.exports = { getAllProducts,getProductByObjectID }
+const getProductByNameNoIndex = async(searchText) => {
+    let arr = [];
+    searchText.split(' ').forEach(element => {
+        let reg = new RegExp(element,"i");
+        arr.push({
+            name: {$regex: reg}
+        })
+    });
+    console.time('searchNoIndex');
+    const listPro = await productModel.find({$and: arr});
+    console.timeEnd('searchNoIndex');
+    return listPro;
+}
+
+const getProductByNameWithIndex = async(searchText) => {
+    console.time('searchWithIndex');
+    const listPro = await productModel.find(
+        { $text: { $search: `${searchText}` } },
+        { score: { $meta: "textScore" } }
+    ).sort({ score: { $meta: "textScore" } } );
+    console.timeEnd('searchWithIndex');
+    return listPro;
+}
+
+module.exports = { getAllProducts,getProductByObjectID,getProductByNameNoIndex,getProductByNameWithIndex };
 
 
 
