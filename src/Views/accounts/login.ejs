@@ -9,13 +9,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
     <link rel="stylesheet" href="/css/login.css">
-    <title>Đăng nhập</title>
+    <title>Login</title>
 </head>
 
 <body>
     <div class="container">
         <div class="cont-right shadow">
-            <p class="title">Đăng nhập</p>
+            <p class="title">Login</p>
             <form id="frmLogin" action="/account/login" method="POST">
                 <div class="form-group">
                     <input id="email" type="text" name="email" placeholder="Email..." />
@@ -24,25 +24,25 @@
                     <span class="message-clone">0</span>
                 </div>
                 <div class="form-group">
-                    <input id="password" type="password" name="password" placeholder="Mật khẩu" />
+                    <input id="password" type="password" name="password" placeholder="Password" />
                     <span class="form-message" style="color: red;" id="isExistPassword">
                     </span>
                     <span class="message-clone">0</span>
                 </div>
                 <div style="margin-top: 5px">
                 </div>
-                <button type="button" class="btn-login" id="btnLogin">Đăng nhập</button>
+                <button type="button" class="btn-login" id="btnLogin">Login</button>
 
                 <hr style="margin-top: 1.5rem; margin-bottom: 1.5rem">
 
                 <div >
-                    <a href="#" class="btnGoogle"><i class="fab fa-google mr-1"></i>Đăng nhập với Google</a>
-                    <a href="#" class="btnFacebook"><i class="fab fa-facebook-f mr-1"></i>Đăng nhập với Facebook</a> 
+                    <a href="#" class="btnGoogle"><i class="fab fa-google mr-1"></i>Login with Google</a>
+                    <a href="#" class="btnFacebook"><i class="fab fa-facebook-f mr-1"></i>Login with Facebook</a> 
                 </div>
                 
                 <div style="margin-top: 1.5rem">
-                    <p class="link_bottom"><a href="/account/forgotpassword" class="text-center">Quên mật khẩu?</a></p>
-                    <p class="link_bottom">Bạn chưa có tài khoản?<a class="ml-1" href="/account/register">Đăng ký</a>
+                    <p class="link_bottom"><a href="/account/forgotpassword" class="text-center">Forgot password?</a></p>
+                    <p class="link_bottom">Do not have an account?<a class="ml-1" href="/account/register">Register</a>
                     </p>
                 </div>
             </form>
@@ -63,10 +63,10 @@
                 }
             }).done(function(data) {
                 if (data.existEmail === false) {
-                    $('#isExistEmail').html('Email chưa được đăng kí');
+                    $('#isExistEmail').html('Email is not registered');
                 } else
                     if (data.correct_password === false) {
-                        $('#isExistPassword').html('Mật khẩu không chính xác');
+                        $('#isExistPassword').html('Tncorrect password');
                     }
                     else {
                         $.ajax({
@@ -78,7 +78,7 @@
                         }).done(function(data) {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Đăng nhập thành công',
+                                title: 'Logged in successfully',
                                 showConfirmButton: false,
                                 timer: 1500
                                 })
@@ -93,9 +93,9 @@
             formGroupSelector: '.form-group',
             errorSelector: '.form-message',
             rules: [
-                Validator.isRequired('#email', 'Vui lòng nhập trường này'),
-                Validator.isEmail('#email', 'Địa chỉ email không hợp lệ.'),
-                Validator.isRequired("#password", "Vui lòng nhập trường này.")
+                Validator.isRequired('#email', 'Please enter your email'),
+                Validator.isEmail('#email', 'Invalid email.'),
+                Validator.isRequired("#password", "Please enter your password.")
             ]
         });
 

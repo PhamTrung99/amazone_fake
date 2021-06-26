@@ -43,13 +43,13 @@ class accountCon {
 
     async isExistEmail(req, res) {
         const email = req.params.email;
-        const existEmail = await User.getUserByEmail(email);
-        if (existEmail.rows.length === 0) {
+        const data = await User.getUserByEmail(email);
+        if (data.length === 0) {
             res.json({isExist: false})
         } else {
             res.json({
                 isExist: true,
-                user: existEmail.rows[0]
+                user: data
             })
         }
     }

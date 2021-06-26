@@ -19,11 +19,13 @@ client.on("error", (error) => {
 const addCart = async (id, value) => {
     await client.setAsync(id, value).then(() => {
         console.log(message.add_cart_Success);
-    }).catch((error) => console.log(error));
+    }).catch((error) => console.log(error));                                                                                   
 }
 
 const getCart = async (key) => {
     return await client.getAsync(key).catch((error) => console.log(error));
 }
 
-module.exports = { getCart, addCart };
+
+
+module.exports = { getCart, addCart , client};

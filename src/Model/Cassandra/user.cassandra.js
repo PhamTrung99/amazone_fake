@@ -1,6 +1,7 @@
 const cassandra = require('cassandra-driver');
 const message = require('../../messages/message.class');
 const moment = require('moment');
+const {cachingUser, userExistInRedis, getUserInRedisCache, getAttributeOfUser} = require('../Redis/user.redis');
 
 try{
 var client = new cassandra.Client({
@@ -38,7 +39,31 @@ class User {
     async getUserByEmail (email) {
         let query = `SELECT * FROM user WHERE email = '${email}'`;
         let flag = false;
-        return await client.execute(query).catch(error => { console.log(error); })
+        const checkExist = await userExistInRedis(email);
+        if (checkExist === 0) {
+            const user = await client.execute(query).catch(error => { console.log(error); })
+            await cachingUser(user, email);
+        }
+        let user = await getUserInRedisCache(email);
+        let arrResult = [];
+        for (let key in user){
+            let value = await getAttributeOfUser("USER:"+email,key);
+            arrResult.push(value);
+        }
+
+        const data = {
+            email: arrResult[0],
+            name: arrResult[1],
+            password: arrResult[2],
+            phone: arrResult[3],
+            address: arrResult[4],
+            role: arrResult[5],
+            status: arrResult[6],
+            createdat: arrResult[7]
+        }
+        return data;
+
+        
     }
 
     async updateUser (data) {

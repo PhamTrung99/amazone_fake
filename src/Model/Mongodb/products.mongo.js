@@ -1,3 +1,5 @@
+const {client} = require('../Redis/cart.redis');
+
 const mongoose = require('mongoose');
 const message = require('../../messages/message.class');
 const productModel = require('./models/product.model');
@@ -26,6 +28,7 @@ const getAllProducts = async () => {
 
 const getProductByObjectID = async (_id) => {
     const product = await productModel.findById(_id);
+
     return product;
 }
 
