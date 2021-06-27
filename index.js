@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const {auth, authAdmin} = require('./src/middlewares/auth.mdw');
 const authUser = require('./src/middlewares/authUser.mdw');
 const getUserId = require('./src/middlewares/getUserId.mdw');
 const tempForTest = require('./src/middlewares/tempForTest.mdw');
@@ -14,7 +15,7 @@ require('./src/Config/Config')(app);
 //Login, Register routes
 app.use('/account', require('./src/Routes/account.route'));
 
-app.use('/admin', require('./src/Routes/admin.route'));
+app.use('/admin', authAdmin, require('./src/Routes/admin.route'));
 
 app.use('/comment', require('./src/Routes/comment.route'));
 

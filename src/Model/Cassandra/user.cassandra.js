@@ -35,7 +35,12 @@ class User {
         const checkExist = await userExistInRedis(email);
         if (checkExist === 0) {
             const user = await client.execute(query).catch(error => { console.log(error); })
-            await cachingUser(user, email);
+            if (user.rows.length === 0) {
+                let dataEmpty = {};
+                return dataEmpty;
+            } else {
+                await cachingUser(user, email);
+            }
         }
         let user = await getUserInRedisCache(email);
         let arrResult = [];
@@ -50,8 +55,8 @@ class User {
             password: arrResult[2],
             phone: arrResult[3],
             address: arrResult[4],
-            role: arrResult[5],
-            status: arrResult[6],
+            role: parseInt(arrResult[5]),
+            status: parseInt(arrResult[6]),
             createdat: arrResult[7]
         }
         return data;

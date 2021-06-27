@@ -17,10 +17,10 @@ class accountCon {
             correct_password: false
         }
         const user = await User.getUserByEmail(req.body.email);
-        if (user.rows.length === 0) {
+        if (Object.keys(user).length === 0) {
             result.existEmail = false;
         } else {
-            const isCorrectPass = bcrypt.compareSync(req.body.password, user.rows[0].password);
+            const isCorrectPass = bcrypt.compareSync(req.body.password, user.password);
             if (isCorrectPass === true) {
                 result.correct_password = true;
             }
@@ -30,9 +30,15 @@ class accountCon {
 
     async postLogin (req, res) {
         const user = await User.getUserByEmail(req.body.email);
+        if (user.role === 1 && user.status === 1) {
+            req.session.isAuth = true;
+            res.status(200).json({role: 1});
+        } else 
+            if (user.role === 0 && user.status){
+            req.session.isAuthAdmin = true;
+            res.status(200).json({role: 0});
+        }
         req.session.authUser = user;
-        req.session.isAuth = true;
-        res.status(200).json({});
     }
 
     getRegister(req, res) {
@@ -44,7 +50,7 @@ class accountCon {
     async isExistEmail(req, res) {
         const email = req.params.email;
         const data = await User.getUserByEmail(email);
-        if (data.length === 0) {
+        if (Object.keys(data).length === 0) {
             res.json({isExist: false})
         } else {
             res.json({
@@ -58,6 +64,17 @@ class accountCon {
         req.body.password = bcrypt.hashSync(req.body.password, SALT);
         let user = await User.createUser(req.body);
         res.status(200).json({});
+    }
+
+    postLogout( req, res) {
+        req.session.authUser = null;
+        if(req.session.isAuthAdmin) {
+            req.session.isAuthAdmin = false;
+            res.redirect('/account/login');
+        } else {
+            req.session.isAuth = false;
+            return res.redirect('/account/login'); 
+        }
     }
         
 }

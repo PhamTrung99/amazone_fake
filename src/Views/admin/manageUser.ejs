@@ -213,6 +213,7 @@
                     $('#emailEdit').val(data.user.email);
                     $('#addressEdit').val(data.user.address);
                     $('#phoneEdit').val(data.user.phone);
+                    console.log(data);
                     if (data.user.status === 1) {
                         $('#statusEdit').html("<option value=\"1\">Actived</option>");
                         $('#statusEdit').append("<option value=\"0\">Block</option>");
