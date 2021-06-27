@@ -59,7 +59,7 @@ const setComment = async(req, res) =>{
 } 
 
 const getProductById = async (req, res) => {
-    const product = await getProductByObjectID(req.params.objId);
+    const product = await mongoDB.getProductByObjectID(req.params.objId);
     res.json(product);
 }
 
