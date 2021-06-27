@@ -1,3 +1,5 @@
+const {client} = require('../Redis/cart.redis');
+
 const mongoose = require('mongoose');
 const message = require('../../messages/message.class');
 const productModel = require('./models/product.model');
@@ -26,6 +28,7 @@ const getAllProducts = async () => {
 
 const getProductByObjectID = async (_id) => {
     const product = await productModel.findById(_id);
+
     return product;
 }
 
@@ -56,7 +59,21 @@ const getProductByNameWithIndex = async(searchText) => {
     return listPro;
 }
 
-module.exports = { getAllProducts,getProductByObjectID,getProductByNameNoIndex,getProductByNameWithIndex };
+const addProduct = async (data) => {
+    await productModel.create(data);
+}
+
+const updateProduct = async (data) => {
+    await productModel.findOneAndUpdate({_id : data._id}, data);
+}
+
+const deleteProduct = async (id) => {
+    await productModel.findByIdAndRemove(id);
+}
+
+module.exports = { getAllProducts,getProductByObjectID,getProductByNameNoIndex
+    ,getProductByNameWithIndex,addProduct, updateProduct, deleteProduct };
+
 
 
 

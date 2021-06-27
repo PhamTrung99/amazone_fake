@@ -8,4 +8,6 @@ route.post('/getinfo', proDetailCon.getProduct);
 route.post('/setcomment', proDetailCon.setComment);
 
 
+route.get('/getproduct/:objId', proDetailCon.getProductById);
+
 module.exports = route;

@@ -58,7 +58,11 @@ const setComment = async(req, res) =>{
     res.status(201).json({});
 } 
 
+const getProductById = async (req, res) => {
+    const product = await getProductByObjectID(req.params.objId);
+    res.json(product);
+}
 
 module.exports = {
-    productDetailCon, getProduct, setComment
-};
+    productDetailCon, getProduct, setComment, getProductById
+}

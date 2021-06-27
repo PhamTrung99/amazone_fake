@@ -13,7 +13,7 @@ const getAllComment = async () => {
     let session = driver.session();
     let commentLists = [];
     try {
-        var result = await session.run('MATCH (p:Comment) RETURN p LIMIT 5', {});
+        var result = await session.run('MATCH (p:Comment) RETURN p', {});
         result.records.forEach((singleRecord) => {
             commentLists.push(singleRecord.get(0).properties);
         })
@@ -210,9 +210,47 @@ const setRelationCustoCom = async (CustomerID, CommentID) => {
     }
 }
 
+
+const deleteComment = async (id) => {
+    let session = driver.session();
+    try {
+        await session.run(`MATCH (i:Image {comID: '${id}'}) DETACH DELETE i`, {});
+        await session.run(`MATCH (p:Comment {id: '${id}'}) DETACH DELETE p`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
+
+const lockComment = async (data) => {
+    let session = driver.session();
+    try {
+        await session.run(`MATCH (p:Comment {id: '${data.id}'}) SET p.status= '${data.status}'`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+}
+
+const getCommentById = async (id) => {
+    let session = driver.session();
+    let comment;
+    try {
+        comment = await session.run(`MATCH (p:Comment {id: '${id}'}) RETURN p`, {});
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await session.close();
+    }
+    return comment.records[0].get(0).properties;
+}
+
 module.exports = {
     getAllComment, getCommentByProductID, getCommentImage,
     getCustomerComment, getSeller, setComment, setRelationComtoPro, checkExistsComment,
-    checkExistsCustomer, setCustomer, setRelationCustoCom
+    checkExistsCustomer, setCustomer, setRelationCustoCom,
+    deleteComment, getCommentById, lockComment 
 }
 

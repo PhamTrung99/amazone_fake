@@ -72,4 +72,5 @@ const deleteCart = async (Hkey)=>{
 
 
 
-module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, removeProFromCart, checkExistPro, deleteCart };
+module.exports = { addCart, getAllCartByHkey, addQuantityOfProduct, 
+    removeProFromCart, checkExistPro, deleteCart, client };
