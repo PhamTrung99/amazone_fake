@@ -37,14 +37,14 @@ const getProductByNameNoIndex = async(searchText) => {
             name: {$regex: reg}
         })
     });
-    console.time('searchNoIndex');
+    //console.time('searchNoIndex');
     const listPro = await productModel.find({$and: arr});
-    console.timeEnd('searchNoIndex');
+    //console.timeEnd('searchNoIndex');
     return listPro;
 }
 
 const getProductByNameWithIndex = async(searchText) => {
-    console.time('searchWithIndex');
+    //console.time('searchWithIndex');
     // const listPro = await productModel.find(
     //     { $text: { $search: `${searchText}` } },
     //     { score: { $meta: "textScore" } }
@@ -52,7 +52,7 @@ const getProductByNameWithIndex = async(searchText) => {
     const listPro = await productModel.find(
         { $text: { $search: `${searchText}` } }
     );
-    console.timeEnd('searchWithIndex');
+   // console.timeEnd('searchWithIndex');
     return listPro;
 }
 
